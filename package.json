@@ -1,0 +1,19 @@
+{
+  "name": "cellular-automata-project",
+  "version": "0.0.1",
+  "description": "A-Level Programming project simulating cellular automata and falling sand",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dmcclean780/cellular-automata-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmcclean780/cellular-automata-project/issues"
+  },
+  "homepage": "https://github.com/dmcclean780/cellular-automata-project#readme"
+}
