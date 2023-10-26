@@ -1,3 +1,3 @@
 function goToFallingSand(){
-    location.href="fallingSand.html";
-}
+    window.location.href = "fallingSand.html";
+};
