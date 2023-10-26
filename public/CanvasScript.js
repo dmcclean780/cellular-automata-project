@@ -1,12 +1,15 @@
+//Code to draw on load
+//Taken from https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
 function draw() {
     const canvas = document.getElementById("FallingSandCanvas");
     if (canvas.getContext) {
         const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "rgb(200, 0, 0)";
-        ctx.fillRect(10, 10, 50, 50);
+        ctx.beginPath();
+        ctx.fillStyle = "rgb(255, 255, 0)";
+        ctx.arc(75, 75, 50, 0, 2*Math.PI, false);
+        ctx.fill();
 
-        ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-        ctx.fillRect(30, 30, 50, 50);
+        
     }
   }
   window.addEventListener("load", draw);
