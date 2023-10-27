@@ -21,22 +21,12 @@ function getMousePosition(canvas, e) {
     draw(canvasX,canvasY);
 } 
 
-//Taken and adapted from https://stackoverflow.com/questions/4938346/canvas-width-and-height-in-html5
-function scaleCanvas(canvas){
-    // look up the size the canvas is being displayed
-   const width = canvas.clientWidth;
-   const height = canvas.clientHeight;
 
-   // If it's resolution does not match change it
-   if (width !=canvas.width || height != canvas.height) {
-     canvas.width = width;
-     canvas.height = height;
-   }
-}
 
 window.addEventListener("load",(event)=>{
     const canvas = document.getElementById("FallingSandCanvas");
-    scaleCanvas(canvas);
+    //canvas.width=100;
+    //canvas.height=75;
     canvas.addEventListener("mousedown", function (e) {
         getMousePosition(canvas,e);
     });
