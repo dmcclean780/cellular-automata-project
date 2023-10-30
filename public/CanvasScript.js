@@ -1,3 +1,5 @@
+//import {gameArray} from "gameOfLifeArray";
+
 //Code to draw on a pixel on screen
 //Taken from https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
 function draw(x, y) {
@@ -25,13 +27,27 @@ function getMousePositionY(canvas,e){
     return canvasY;
 }
 
-//Block of code to listen for mouse clic and call draw procedure when a click occurs
-window.addEventListener("load",(event)=>{
-    const canvas = document.getElementById("FallingSandCanvas");
+//Function to listen for a mouse click
+function listenForClick(canvas){
     canvas.addEventListener("mousedown", function (e) {
         canvasX=getMousePositionX(canvas,e);
         canvasY=getMousePositionY(canvas,e);
-        draw(canvasX,canvasY);
+        draw(x,y);
+        //updateArray(canvasX, canvasY);
     });
+}
+
+//Function to update the gameArray item to be true
+//function updateArray(x,y){
+   // gameArray[x][y]=true;
+   // draw(x,y);
+//}
+
+//Block of code to listen for mouse clic and call draw procedure when a click occurs
+window.addEventListener("load",(event)=>{
+    const canvas = document.getElementById("GameOfLife");
+    listenForClick(canvas);
 });
+
+
     

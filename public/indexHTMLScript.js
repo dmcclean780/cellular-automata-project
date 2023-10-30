@@ -1,3 +1,3 @@
-function goToFallingSand(){
-    window.location.href = "fallingSand.html";
+function goToGameOfLife(){
+    window.location.href = "gameOfLife.html";
 };
