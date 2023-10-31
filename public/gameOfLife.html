@@ -1,8 +1,7 @@
 <head>
     <title>Falling Sand Simulator</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="text/javascript" src="CanvasScript.js"></script>
-    
+    <script src="main.js" type="module"></script>
     <style>
         canvas{
             image-rendering: pixelated;
@@ -14,8 +13,8 @@
         <span>header</span>
       </header>
       <main class="flex grow">
-        <div class="bg-blue-500 h-full max-w-[2000] mx-auto flex grow flex-col 2xl:flex-row">
-          <div class="bg-purple-500 flex flex-col 2xl:grow">
+        <div class="bg-blue-500 h-full max-w-[2000] mx-auto flex grow flex-col sm:flex-row">
+          <div class="bg-purple-500 flex flex-row sm:grow">
             <div class="bg-orange-500 aspect-[40/30] relative border">
               <canvas
                 id="GameOfLife"
@@ -24,9 +23,9 @@
                 width="40"
                 height="30"
               ></canvas>
-            </div>
+            </div> 
           </div>
-          <div class="bg-gray-500 min-w-[300] min-h-[100] p-2">controls</div>
+          <div class="bg-gray-500 min-w-[300] min-h-[100] p-2"></div>
         </div>
       </main>
 </body>
