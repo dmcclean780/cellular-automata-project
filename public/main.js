@@ -3,6 +3,7 @@ import { handleClick } from "./canvasInput.js";
 import { step } from  "./gameOfLife.js";
 
 let gameArray;
+var run=false;
 
 window.addEventListener("load", (event)=>{
     const canvas=document.getElementById("canvas");
@@ -16,8 +17,22 @@ function stepGame(){
     const canvas=document.getElementById("canvas");
     gameArray = step(gameArray, canvas);
 }
+ function reset(){
+    const canvas=document.getElementById("canvas");
+    var width=canvas.width;
+    var height=canvas.height;
+    gameArray=createArray(width, height);
+    stepGame();
+    var genNoHTML =document.getElementById("genNo.");
+    var genNo = 0;
+    genNoHTML.innerHTML=genNo;
+ }
 
 var stepButton=document.getElementById("stepButton");
 stepButton.addEventListener("click", stepGame);
+
+var resetButton=document.getElementById("resetButton");
+resetButton.addEventListener("click", reset);
+
 
 

@@ -11,6 +11,7 @@ function step(gameArray, canvas){
     return newGameArray;
 }
 
+
 function findNeighbors(gameArray, x, y, canvas){
     var aliveNeighbors=0;
     var width=canvas.width;
@@ -77,9 +78,7 @@ function gameOfLife(gameArray, canvas){
             }
             if(gameArray[i][j]==false){
                 if(aliveNeighbors==3){
-                    console.log("birth");
                     newGameArray[i][j]=true;
-                    console.log(newGameArray[i][j]);
                 }
                 else{
                     newGameArray[i][j]==false;
