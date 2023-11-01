@@ -19,13 +19,12 @@ function getMousePositionY(canvas,e){
 }
 
 //Function to listen for a mouse click
-function listenForClick(canvas, gameArray){
-    canvas.addEventListener("mousedown", function (e) {
+
+function handleClick(canvas, gameArray, e) {
         var canvasX=getMousePositionX(canvas,e);
         var canvasY=getMousePositionY(canvas,e);
         updateArray(canvasX, canvasY, gameArray);
         renderArray(canvas, gameArray);
-    });
 }
 
 //Function to update the gameArray item to be true
@@ -35,7 +34,7 @@ function updateArray(x,y, gameArray){
 
 
 
-export{listenForClick};
+export{handleClick};
 
 
     

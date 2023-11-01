@@ -8,7 +8,7 @@ function step(gameArray, canvas){
     genNoHTML.innerHTML=genNo;
     var newGameArray = gameOfLife(gameArray, canvas);
     renderArray(canvas, newGameArray);
-    gameArray=newGameArray;
+    return newGameArray;
 }
 
 function findNeighbors(gameArray, x, y, canvas){
@@ -66,7 +66,7 @@ function gameOfLife(gameArray, canvas){
     var newGameArray=createArray(width, height);
     for(var i=0; i<width; i++){
         for(var j=0; j<height; j++){
-            let aliveNeighbors=findNeighbors(gameArray, i, j, canvas);
+            var aliveNeighbors=findNeighbors(gameArray, i, j, canvas);
             if(gameArray[i][j]==true){
                 if(aliveNeighbors<2 || aliveNeighbors>3 ){
                     newGameArray[i][j]=false;
@@ -77,7 +77,9 @@ function gameOfLife(gameArray, canvas){
             }
             if(gameArray[i][j]==false){
                 if(aliveNeighbors==3){
-                    newGameArray[i][j]==true;
+                    console.log("birth");
+                    newGameArray[i][j]=true;
+                    console.log(newGameArray[i][j]);
                 }
                 else{
                     newGameArray[i][j]==false;
