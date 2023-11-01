@@ -9,7 +9,9 @@ function draw(x, y, canvas, colour) {
   }
 
 //Function to update every pixel  
-  function renderArray(canvas, gameArray, width, height){ 
+  function renderArray(canvas, gameArray){ 
+    var width=canvas.width;
+    var height=canvas.height;
     for(var i=0; i<width; i++){
         for(var j=0; j<height; j++){
             if(gameArray[i][j]==true){
