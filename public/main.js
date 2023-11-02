@@ -5,6 +5,7 @@ import { renderArray } from "./canvasOutput.js";
 
 let gameArray;
 var interval = null;
+var speed=1000;
 
 window.addEventListener("load", (event)=>{
     const canvas=document.getElementById("canvas");
@@ -29,22 +30,25 @@ function reset(){
     var genNo = 0;
     genNoHTML.innerHTML=genNo;
 }
+function findSpeed(){
+    var n=speedSlider.value;
+    speed=1000+n*(-980/59);
+}
 
+//Taken and adapted from https://stackoverflow.com/questions/29173956/start-and-stop-loop-in-javascript-with-start-and-stop-button
 function run(){
-    var i = 0;
+    findSpeed();
     interval = setInterval(function () {
-        runGame();  // this is inside your loop
-     }, 1000);
+        console.log(speed);
+        findSpeed();
+        stepGame(); 
+     }, speed);
 };
  
 function stop() {
-     clearInterval(interval);
+    clearInterval(interval);
 };
 
-function runGame(){
-    stepGame();
-    setTimeout(()=>{runGame; }, 1000)
-}
 
 var stepButton=document.getElementById("stepButton");
 stepButton.addEventListener("click", stepGame);
@@ -57,6 +61,9 @@ runButton.addEventListener("click", run);
 
 var stopButton=document.getElementById("stopButton");
 stopButton.addEventListener("click", stop);
+
+var speedSlider=document.getElementById("speed");
+
 
 
 
