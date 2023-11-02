@@ -11,7 +11,6 @@ function step(gameArray, canvas){
     return newGameArray;
 }
 
-
 function findNeighbors(gameArray, x, y, canvas){
     var aliveNeighbors=0;
     var width=canvas.width;
