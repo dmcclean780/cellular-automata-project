@@ -1,5 +1,5 @@
+//Code to import the renderArray procedure
 import { renderArray } from "./canvasOutput.js";
-
 
 
 //Pair of functions to find the x and y coordinates of a mouse click
@@ -18,8 +18,7 @@ function getMousePositionY(canvas,e){
     return canvasY;
 }
 
-//Function to listen for a mouse click
-
+//Procedure to handle a mouse click
 function handleClick(canvas, gameArray, e) {
         var canvasX=getMousePositionX(canvas,e);
         var canvasY=getMousePositionY(canvas,e);
@@ -27,13 +26,13 @@ function handleClick(canvas, gameArray, e) {
         renderArray(canvas, gameArray);
 }
 
-//Function to update the gameArray item to be true
+//Procedure to update the gameArray item to be true
 function updateArray(x,y, gameArray){
     gameArray[x][y]=true;
 }
 
 
-
+//Code to export the handleClick procedure
 export{handleClick};
 
 

@@ -1,4 +1,4 @@
-//Function to draw on a pixel on screen
+//Procedure to draw on a pixel on screen
 //Taken from https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
 function draw(x, y, canvas, colour) {
     if (canvas.getContext) {
@@ -8,7 +8,7 @@ function draw(x, y, canvas, colour) {
     }
   }
 
-//Function to update every pixel  
+//Procedure to update every pixel  
   function renderArray(canvas, gameArray){ 
     var width=canvas.width;
     var height=canvas.height;
@@ -26,4 +26,5 @@ function draw(x, y, canvas, colour) {
     }
 }
 
+//Code to export the renderArray procedure 
 export{renderArray};
