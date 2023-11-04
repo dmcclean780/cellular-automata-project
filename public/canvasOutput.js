@@ -1,5 +1,7 @@
+//File containg code to output to the canvas
+
 //Procedure to draw on a pixel on screen
-//Taken from https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
+//Taken and adapted from https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
 function draw(x, y, canvas, colour) {
     if (canvas.getContext) {
         const ctx = canvas.getContext("2d");

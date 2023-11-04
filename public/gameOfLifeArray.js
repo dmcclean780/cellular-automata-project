@@ -1,3 +1,4 @@
+//File containing code to initilaise the game Array
 
 //Function to create the gameArray and set every item to be false
 function createArray(width, height){

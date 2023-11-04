@@ -1,3 +1,6 @@
+//File containing code to execute the Simulation
+
+//Import Statments to import the required subroutines from other files.
 import { renderArray } from "./canvasOutput.js";
 import { createArray } from "./gameOfLifeArray.js";
 

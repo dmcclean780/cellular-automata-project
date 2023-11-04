@@ -1,3 +1,5 @@
+//File containing code to give recieve input form the canvas
+
 //Code to import the renderArray procedure
 import { renderArray } from "./canvasOutput.js";
 
