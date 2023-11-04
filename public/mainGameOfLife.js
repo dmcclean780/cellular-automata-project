@@ -12,6 +12,7 @@ let value =0;
 let stopSim=false;
 let speed;
 
+
 //Block of code to create the array and listen for a mouse click
 window.addEventListener("load", (event)=>{
     const canvas=document.getElementById("canvas");
@@ -73,9 +74,10 @@ function animate() {
   else{
     if (value == speed) {
         value=0;
-        stepGame();
+        
         if(stopSim==false){
-            requestAnimationFrame((t) => animate(t));
+          stepGame();
+          requestAnimationFrame((t) => animate(t));
         }
       } 
       else {
