@@ -2,7 +2,7 @@
 
 //Code to import the required functions from other javaScript files
 import { createArray } from "./gameOfLifeArray.js";
-import { handleClick } from "./canvasInput.js";
+import { startPainting, stopPainting, sketch } from "./canvasInput.js";
 import { step } from  "./gameOfLife.js";
 import { renderArray } from "./canvasOutput.js";
 
@@ -19,7 +19,9 @@ window.addEventListener("load", (event)=>{
     var width=canvas.width;
     var height=canvas.height;
     gameArray=createArray(width, height);
-    canvas.addEventListener("mousedown", (event) => handleClick(canvas, gameArray, event));
+    canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvas));
+  	canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvas));
+    canvas.addEventListener('mousemove', (event)=> sketch(event, gameArray, canvas));
 })
 
 //Procedure to move the game on 1 generation

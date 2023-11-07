@@ -12,6 +12,7 @@ function draw(x, y, canvas, colour) {
 
 //Procedure to update every pixel  
   function renderArray(canvas, gameArray){ 
+    console.log("rendering")
     var width=canvas.width;
     var height=canvas.height;
     for(var i=0; i<width; i++){
