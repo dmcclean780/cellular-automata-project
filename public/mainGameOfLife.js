@@ -2,7 +2,7 @@
 
 //Code to import the required functions from other javaScript files
 import { createArray } from "./gameOfLifeArray.js";
-import { startPainting, stopPainting, sketch } from "./canvasInput.js";
+import { startPainting, stopPainting, sketch, eraseMode } from "./canvasInput.js";
 import { step } from  "./gameOfLife.js";
 import { renderArray } from "./canvasOutput.js";
 
@@ -109,6 +109,9 @@ var stopButton=document.getElementById("stopButton");
 stopButton.addEventListener("click", stop);
 
 var speedSlider=document.getElementById("speed");
+
+var eraseButton=document.getElementById("eraseButton");
+eraseButton.addEventListener("click", eraseMode);
 
 
 
