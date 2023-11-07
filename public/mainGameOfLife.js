@@ -15,39 +15,39 @@ let speed;
 
 //Block of code to create the array and listen for a mouse click
 window.addEventListener("load", (event)=>{
-    const canvas=document.getElementById("canvas");
-    var width=canvas.width;
-    var height=canvas.height;
-    gameArray=createArray(width, height);
-    canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvas));
-  	canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvas));
-    canvas.addEventListener('mousemove', (event)=> sketch(event, gameArray, canvas));
+  const canvas=document.getElementById("canvas");
+  var width=canvas.width;
+  var height=canvas.height;
+  gameArray=createArray(width, height);
+  canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvas));
+  canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvas));
+  canvas.addEventListener('mousemove', (event)=> sketch(event, gameArray, canvas));
 })
 
 //Procedure to move the game on 1 generation
 function stepGame(){
-    const canvas=document.getElementById("canvas");
-    gameArray = step(gameArray, canvas);
+  const canvas=document.getElementById("canvas");
+  gameArray = step(gameArray, canvas);
 }
 
 //Procedure to reset the game
 function reset(){
-    stop();
-    const canvas=document.getElementById("canvas");
-    var width=canvas.width;
-    var height=canvas.height;
-    gameArray=createArray(width, height);
-    renderArray(canvas, gameArray);
-    var genNoHTML =document.getElementById("genNo.");
-    var genNo = 0;
-    genNoHTML.innerHTML=genNo;
+  stop();
+  const canvas=document.getElementById("canvas");
+  var width=canvas.width;
+  var height=canvas.height;
+  gameArray=createArray(width, height);
+  renderArray(canvas, gameArray);
+  var genNoHTML =document.getElementById("genNo.");
+  var genNo = 0;
+  genNoHTML.innerHTML=genNo;
 }
 
 //Function to find the speed to run the simulation at
 function findSpeed(){
-    var n=speedSlider.value;
-    var speed=60-n;
-    return speed;
+  var n=speedSlider.value;
+  var speed=60-n;
+  return speed;
 }
 
 
@@ -92,7 +92,7 @@ function animate() {
 
 //Procedure to clear the intreval and stop it
 function stop() {
-    stopSim=true
+  stopSim=true
 };
 
 //Sections of code to retrive buttons what to do when they are clicked
