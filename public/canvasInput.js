@@ -44,11 +44,14 @@ function sketch(event, gameArray, canvas){
     renderArray(canvas, gameArray)
 }
 
-function eraseMode(){
+function eraseMode(eraseButton){
     if(!erase){
+        eraseButton.style.backgroundColor="red";
         erase=true;
+        
     }
     else{
+        eraseButton.style.backgroundColor="white";
         erase=false;
     }
     

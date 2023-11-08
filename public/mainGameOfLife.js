@@ -111,7 +111,7 @@ stopButton.addEventListener("click", stop);
 var speedSlider=document.getElementById("speed");
 
 var eraseButton=document.getElementById("eraseButton");
-eraseButton.addEventListener("click", eraseMode);
+eraseButton.addEventListener("click", (event)=> eraseMode(eraseButton));
 
 
 
