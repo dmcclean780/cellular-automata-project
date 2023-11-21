@@ -99,10 +99,8 @@ function randomiseArray(){
   const canvas=document.getElementById("canvas");
   var width = canvas.width;
   var height= canvas.height;
-  for(var i=0; i<width; i++){
-    for(var j=0; j<height; j++){
-      gameArray[i][j]=Math.random() < 0.5;
-    }
+  for(var i=0; i<width*height; i++){
+    gameArray[i]=Math.random() < 0.5;
   }
   renderArray(canvas, gameArray);
 }

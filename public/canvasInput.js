@@ -2,6 +2,7 @@
 
 //Code to import the renderArray procedure
 import { renderArray } from "./canvasOutput.js";
+import { coordToIndex } from "./gameOfLifeArray.js";
 
 let paint = false;
 let erase = false;
@@ -59,13 +60,13 @@ function eraseMode(eraseButton){
 
 //Procedure to update the gameArray item to be true
 function updateArray(x,y, gameArray){
+    var index = coordToIndex(x,y, canvas)
     if(erase){
-        gameArray[x][y]=false;
+        gameArray[index]=false;
     }
     else{
-        gameArray[x][y]=true;
-    }
-    
+        gameArray[index]=true;
+    }    
 }
 
 

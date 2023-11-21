@@ -2,13 +2,24 @@
 
 //Function to create the gameArray and set every item to be false
 function createArray(width, height){
-    var gameArray=Array(width).fill(null).map(() => Array(height));
-    for (var i=0; i<width; i++ ){
-        for(var j=0; j<height; j++){
-            gameArray[i][j]=false;
-        }
+    var gameArray= new Array(width*height);
+    for (var i=0; i<width*height; i++ ){
+        gameArray[i]=false;
     }
     return gameArray
 }
+
+function coordToIndex(x,y,canvas){
+    var index = (y*canvas.width)+x;
+    return index;
+}
+
+function indexToCoord(index,canvas){
+    var y = Math.floor(index/canvas.width);
+    var x = index%canvas.width;
+    var coord = [x,y];
+    return coord;
+}
+
 //Code to export the above function
-export{createArray};
+export{createArray, coordToIndex, indexToCoord};
