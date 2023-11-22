@@ -22,56 +22,16 @@ function findNeighbors(gameArray, index, canvas){
     var height=canvas.height;
     var coord = indexToCoord(index, canvas);
     var nextIndex;
-  if(coord[0]>0){
-    nextIndex = coordToIndex(coord[0]-1, coord[1], canvas);
-    if(gameArray[nextIndex]){ //Horizontally Left
-        aliveNeighbors++;
-    }
-    if(coord[1]<height-1){
-        nextIndex = coordToIndex(coord[0]-1, coord[1]-1, canvas);
-        if(gameArray[nextIndex]){ //Diagonally Below Left
-            aliveNeighbors++;
+    for(var i=-1; i<2; i++){
+        for(var j=-1; j<2; j++){
+            var nextX=coord[0]+j;
+            var nextY=coord[1]+i;
+            nextIndex=coordToIndex(nextX, nextY, canvas);
+            if(gameArray[nextIndex] == true && nextIndex != index){
+                aliveNeighbors++;
+            }
         }
     }
-  }
-  if(coord[1]>0){
-    nextIndex = coordToIndex(coord[0], coord[1]-1, canvas);
-    if(gameArray[nextIndex]){ //Vertcally Above
-        aliveNeighbors++;
-    }
-    if(coord[0]<width-1){
-        nextIndex = coordToIndex(coord[0]+1, coord[1]-1, canvas);
-        if(gameArray[nextIndex]){ //Diagonally Above Right
-            aliveNeighbors++;
-        }
-    }
-    
-  }
-  if(coord[0]>0 && coord[1]>0){
-    nextIndex = coordToIndex(coord[0]-1, coord[1]-1, canvas);
-    if(gameArray[nextIndex]){ //Diagonally Above Left
-        aliveNeighbors++;
-    }
-  }
-  if(coord[0]<width-1){
-    nextIndex = coordToIndex(coord[0]+1, coord[1], canvas);
-    if(gameArray[nextIndex]){ //Horixontally Right
-        aliveNeighbors++;
-    }
-  }
-  if(coord[1]<height-1){
-    nextIndex = coordToIndex(coord[0], coord[1]+1, canvas);
-    if(gameArray[nextIndex]){ //Vertically Below
-        aliveNeighbors++;
-    }
-  }
-  if(coord[0]<width-1 && coord[1]<height-1){
-    nextIndex = coordToIndex(coord[0]+1, coord[1]+1, canvas);
-    if(gameArray[nextIndex]){//Diagonally Below Right
-        aliveNeighbors++;
-    }
-  }
-    
     return aliveNeighbors;
 }
 
@@ -82,16 +42,23 @@ function gameOfLife(gameArray, canvas){
     var newGameArray=createArray(width, height);
     for(var i=0; i<width*height; i++){
             var aliveNeighbors=findNeighbors(gameArray, i, canvas);
-            if(gameArray[i]==true){ //If cells alive
-                if(aliveNeighbors==2 || aliveNeighbors==3){
+            if(gameArray[i]==true){
+                if(aliveNeighbors<2 || aliveNeighbors>3 ){
+                    newGameArray[i]=false;
+                }
+                else{
                     newGameArray[i]=true;
                 }
             }
-            if(gameArray[i]==false){ //If cells dead
-                if(aliveNeighbors==3){ //Born if surrounded by exactly 3
+            if(gameArray[i]==false){
+                if(aliveNeighbors==3){
                     newGameArray[i]=true;
                 }
-            }
+                else{
+                    newGameArray[i]=false;
+                }
+            }          
+
     }
     return newGameArray;
 }
