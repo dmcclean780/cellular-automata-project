@@ -9,27 +9,27 @@ let erase = false;
 
 //Pair of functions to find the x and y coordinates of a mouse click
 //Taken and adapted from https://stackoverflow.com/questions/20516311/drawing-a-circle-in-a-canvas-on-mouseclick and https://stackoverflow.com/questions/40753016/mouse-coordinates-on-canvas-after-css-scale
-function getMousePositionX(canvas, e) { 
+function getMousePositionX(canvasInfo, e) { 
     var rect = e.target.getBoundingClientRect();
     var x = e.clientX - rect.left;
-    const canvasX = Math.round(x * canvas.width / canvas.clientWidth);
+    const canvasX = Math.round(x * canvasInfo.width / canvasInfo.clientWidth);
     return canvasX;
 } 
 
-function getMousePositionY(canvas,e){
+function getMousePositionY(canvasInfo,e){
     var rect = e.target.getBoundingClientRect();
     var y = e.clientY - rect.top;;
-    const canvasY = Math.round(y * canvas.height / canvas.clientHeight);
+    const canvasY = Math.round(y * canvasInfo.height / canvasInfo.clientHeight);
     return canvasY;
 }
 
 //Procedure to handle a mouse click
-function startPainting(event, gameArray, canvas){
+function startPainting(event, gameArray, canvasInfo){
     paint = true;
-    var canvasX =getMousePositionX(canvas, event);
-    var canvasY =getMousePositionY(canvas, event);
+    var canvasX =getMousePositionX(canvasInfo, event);
+    var canvasY =getMousePositionY(canvasInfo, event);
     updateArray(canvasX, canvasY, gameArray);
-    renderArray(canvas, gameArray)
+    renderArray(canvasInfo, gameArray)
 }
 
 function stopPainting(gameArray, canvas){
@@ -37,12 +37,12 @@ function stopPainting(gameArray, canvas){
     
 }
             
-function sketch(event, gameArray, canvas){
+function sketch(event, gameArray, canvasInfo){
     if (!paint) return;
-    var canvasX =getMousePositionX(canvas, event);
-    var canvasY =getMousePositionY(canvas, event);
+    var canvasX =getMousePositionX(canvasInfo, event);
+    var canvasY =getMousePositionY(canvasInfo, event);
     updateArray(canvasX, canvasY, gameArray);
-    renderArray(canvas, gameArray)
+    renderArray(canvasInfo, gameArray)
 }
 
 function eraseMode(eraseButton){

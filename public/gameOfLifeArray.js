@@ -1,21 +1,21 @@
 //File containing code to initilaise the game Array
 
 //Function to create the gameArray and set every item to be false
-function createArray(width, height){
-    var gameArray= new Array(width*height);
-    for (var i=0; i<width*height; i++ ){
+function createArray(canvasInfo){
+    var gameArray= new Array(canvasInfo.width*canvasInfo.height);
+    for (var i=0; i<canvasInfo.width*canvasInfo.height; i++ ){
         gameArray[i]=false;
     }
     return gameArray
 }
 
-function coordToIndex(x,y,canvas){
-    var index = (y*canvas.width)+x;
+function coordToIndex(x,y,canvasInfo){
+    var index = (y*canvasInfo.width)+x;
     return index;
 }
 
-function indexToCoord(index,canvas){
-    var y = Math.floor(index/canvas.width);
+function indexToCoord(index,canvasInfo){
+    var y = Math.floor(index/canvasInfo.width);
     var x = index%canvas.width;
     var coord = [x,y];
     return coord;
