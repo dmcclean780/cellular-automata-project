@@ -18,13 +18,7 @@ let newGameArray;
 
 //Block of code to create the array and listen for a mouse click
 window.addEventListener("load", (event)=>{
-  const canvas=document.getElementById("canvas");
-  const width=canvas.width;
-  const height=canvas.height;
-  const ctx = canvas.getContext("2d");
-  const clientWidth=canvas.clientWidth;
-  const clientHeight=canvas.clientHeight;
-  canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
+  setCanvasObj();
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
   canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvasData, true));
@@ -35,14 +29,7 @@ window.addEventListener("load", (event)=>{
   canvas.addEventListener('touchmove', (event)=> startPainting(event, gameArray, canvasData, false));
 })
 
-window.addEventListener("resize", (event)=>{const canvas=document.getElementById("canvas");
-  const width=canvas.width;
-  const height=canvas.height;
-  const ctx = canvas.getContext("2d");
-  const clientWidth=canvas.clientWidth;
-  const clientHeight=canvas.clientHeight;
-  canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
-})
+window.addEventListener("resize", (event)=>{setCanvasObj();})
 
 //Procedure to move the game on 1 generation
 function stepGame(){
@@ -53,9 +40,7 @@ function stepGame(){
 //Procedure to reset the game
 function reset(){
   stop();
-  var width=canvasData.width;
-  var height=canvasData.height;
-  gameArray=createArray(width, height);
+  gameArray=createArray(canvasData);
   renderArray(canvasData, gameArray);
   var genNoHTML =document.getElementById("genNo.");
   var genNo = 0;
@@ -123,6 +108,15 @@ function randomiseArray(){
   renderArray(canvasData, gameArray);
 }
 
+function setCanvasObj(){
+  const canvas=document.getElementById("canvas");
+  const width=canvas.width;
+  const height=canvas.height;
+  const ctx = canvas.getContext("2d");
+  const clientWidth=canvas.clientWidth;
+  const clientHeight=canvas.clientHeight;
+  canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
+}
 //Sections of code to retrive buttons what to do when they are clicked
 var stepButton=document.getElementById("stepButton");
 stepButton.addEventListener("click", stepGame);
