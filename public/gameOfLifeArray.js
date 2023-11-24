@@ -16,9 +16,18 @@ function coordToIndex(x,y,canvasData){
 
 function indexToCoord(index,canvasData){
     var y = Math.floor(index/canvasData.width);
-    var x = index%canvas.width;
+    var x = modulo(index, canvasData.width);
     var coord = [x,y];
     return coord;
+}
+
+//Equivilent of the Modulo Operator (%)
+//Taken from https://gist.github.com/jussi-kalliokoski/962137
+function modulo(dividend, divisor){
+	while (dividend >= divisor){
+		dividend -= divisor;
+	}
+	return dividend;
 }
 
 //Code to export the above function

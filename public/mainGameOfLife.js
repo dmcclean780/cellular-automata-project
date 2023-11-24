@@ -27,12 +27,21 @@ window.addEventListener("load", (event)=>{
   canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
-  canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvasData));
+  canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvasData, true));
   canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvasData));
-  canvas.addEventListener('mousemove', (event)=> sketch(event, gameArray, canvasData));
-  canvas.addEventListener('touchstart', (event)=> console.log('touchstart'));
-  canvas.addEventListener('touchend', (event)=> console.log('touchend'));
-  canvas.addEventListener('touchmove', (event)=> console.log('touchmove'));
+  canvas.addEventListener('mousemove', (event)=> sketch(event, gameArray, canvasData, true));
+  canvas.addEventListener('touchstart', (event)=> startPainting(event, gameArray, canvasData, false));
+  canvas.addEventListener('touchend', (event)=> stopPainting(gameArray, canvasData));
+  canvas.addEventListener('touchmove', (event)=> startPainting(event, gameArray, canvasData, false));
+})
+
+window.addEventListener("resize", (event)=>{const canvas=document.getElementById("canvas");
+  const width=canvas.width;
+  const height=canvas.height;
+  const ctx = canvas.getContext("2d");
+  const clientWidth=canvas.clientWidth;
+  const clientHeight=canvas.clientHeight;
+  canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
 })
 
 //Procedure to move the game on 1 generation
