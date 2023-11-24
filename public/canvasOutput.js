@@ -7,10 +7,10 @@ var nextScreen = new Uint32Array(320*240);
 
 
 //Procedure to update every pixel  
-  function renderArray(canvasInfo, gameArray){ 
-    var width=canvasInfo.width;
-    var height=canvasInfo.height;
-    var ctx=canvasInfo.ctx;
+  function renderArray(canvasData, gameArray){ 
+    var width=canvasData.width;
+    var height=canvasData.height;
+    var ctx=canvasData.ctx;
     for(var i=0; i<width*height; i++){
             if(gameArray[i]==true){
                 nextScreen[i]=0xff00ff00;
