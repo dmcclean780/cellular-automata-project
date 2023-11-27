@@ -35,8 +35,9 @@ window.addEventListener("resize", (event)=>{setCanvasObj();})
 
 //Procedure to move the game on 1 generation
 function stepGame(){
-  gameArray = step(gameArray, canvasData, newGameArray);
-  newGameArray=createArray(canvasData);
+  var swap = step(gameArray, canvasData, newGameArray);
+  newGameArray=gameArray;
+  gameArray=swap;
   genNo++
   genNoHTML.innerHTML=genNo;
 }
@@ -46,8 +47,7 @@ function reset(){
   stop();
   gameArray=createArray(canvasData);
   renderArray(canvasData, gameArray);
-  var genNoHTML =document.getElementById("genNo.");
-  var genNo = 0;
+  genNo = 0;
   genNoHTML.innerHTML=genNo;
 }
 
