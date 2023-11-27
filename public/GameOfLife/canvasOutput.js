@@ -1,7 +1,7 @@
 //File containg code to output to the canvas
 
 
-var nextScreen = new Uint32Array(320*240);
+
 
 
 
@@ -10,15 +10,7 @@ var nextScreen = new Uint32Array(320*240);
     var width=canvasData.width;
     var height=canvasData.height;
     var ctx=canvasData.ctx;
-    for(var i=0; i<width*height; i++){
-            if(gameArray[i]==true){
-                nextScreen[i]=0xff00ff00;
-            }
-            else{
-                nextScreen[i]=0x00000000;
-            }
-    }
-    var iData = new ImageData(new Uint8ClampedArray(nextScreen.buffer), width, height);
+    var iData = new ImageData(new Uint8ClampedArray(gameArray.buffer), width, height);
     ctx.putImageData(iData,0 ,0);
     
 }

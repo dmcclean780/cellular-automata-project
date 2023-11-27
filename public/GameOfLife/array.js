@@ -2,9 +2,9 @@
 
 //Function to create the gameArray and set every item to be false
 function createArray(canvasData){
-    var gameArray= new Array(canvasData.width*canvasData.height);
+    var gameArray = new Uint32Array(canvasData.width*canvasData.height);
     for (var i=0; i<canvasData.width*canvasData.height; i++ ){
-        gameArray[i]=false;
+        gameArray[i]=0x00000000;
     }
     return gameArray
 }

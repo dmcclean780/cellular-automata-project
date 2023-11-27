@@ -14,13 +14,15 @@ let stopSim=false;
 let speed;
 let canvasData;
 let newGameArray;
-
+var genNoHTML;
+var genNo=0;
 
 //Block of code to create the array and listen for a mouse click
 window.addEventListener("load", (event)=>{
   setCanvasObj();
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
+  genNoHTML =document.getElementById("genNo.");
   canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvasData, true));
   canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvasData));
   canvas.addEventListener('mousemove', (event)=> sketch(event, gameArray, canvasData, true));
@@ -35,6 +37,8 @@ window.addEventListener("resize", (event)=>{setCanvasObj();})
 function stepGame(){
   gameArray = step(gameArray, canvasData, newGameArray);
   newGameArray=createArray(canvasData);
+  genNo++
+  genNoHTML.innerHTML=genNo;
 }
 
 //Procedure to reset the game
@@ -103,7 +107,13 @@ function randomiseArray(){
   var width = canvasData.width;
   var height= canvasData.height;
   for(var i=0; i<width*height; i++){
-    gameArray[i]=Math.random() < 0.5;
+    var state=Math.random() < 0.5;
+    if(state){
+      gameArray[i]=0xff00ff00;
+    }
+    else{
+      gameArray[i]=0x00000000;
+    }
   }
   renderArray(canvasData, gameArray);
 }

@@ -73,10 +73,10 @@ function eraseMode(eraseButton){
 function updateArray(x,y, gameArray){
     var index = coordToIndex(x,y, canvas)
     if(erase){
-        gameArray[index]=false;
+        gameArray[index]=0x00000000;
     }
     else{
-        gameArray[index]=true;
+        gameArray[index]=0xff00ff00;
     }    
 }
 
