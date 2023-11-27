@@ -1,3 +1,3 @@
 function goToGameOfLife(){
-    window.location.href = "gameOfLife.html";
+    window.location.href=("GameOfLife/index.html");
 };

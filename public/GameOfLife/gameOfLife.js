@@ -2,7 +2,7 @@
 
 //Import Statments to import the required subroutines from other files.
 import { renderArray } from "./canvasOutput.js";
-import { indexToCoord, coordToIndex } from "./gameOfLifeArray.js";
+import { indexToCoord, coordToIndex } from "./array.js";
 
 //Function to move the simulation on 1 generation
 function step(gameArray, canvasData, newGameArray){

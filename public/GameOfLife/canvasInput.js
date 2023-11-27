@@ -2,7 +2,7 @@
 
 //Code to import the renderArray procedure
 import { renderArray } from "./canvasOutput.js";
-import { coordToIndex } from "./gameOfLifeArray.js";
+import { coordToIndex } from "./array.js";
 
 let paint = false;
 let erase = false;

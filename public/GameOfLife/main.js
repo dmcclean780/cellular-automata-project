@@ -1,11 +1,11 @@
 //Controller JavaScript file linking all others to the html page
 
 //Code to import the required functions from other javaScript files
-import { createArray } from "./gameOfLifeArray.js";
+import { createArray } from "./array.js";
 import { startPainting, stopPainting, sketch, eraseMode } from "./canvasInput.js";
 import { step } from  "./gameOfLife.js";
 import { renderArray } from "./canvasOutput.js";
-import { CanvasData } from "./canvasClass.js";
+import { CanvasData } from "./canvasData.js";
 
 //Code to decalare the variables that must have a global scope
 let gameArray;
@@ -34,7 +34,7 @@ window.addEventListener("resize", (event)=>{setCanvasObj();})
 //Procedure to move the game on 1 generation
 function stepGame(){
   gameArray = step(gameArray, canvasData, newGameArray);
-  //newGameArray=createArray(canvasData);
+  newGameArray=createArray(canvasData);
 }
 
 //Procedure to reset the game

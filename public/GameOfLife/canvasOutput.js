@@ -1,6 +1,5 @@
 //File containg code to output to the canvas
 
-import { indexToCoord } from "./gameOfLifeArray.js";
 
 var nextScreen = new Uint32Array(320*240);
 
