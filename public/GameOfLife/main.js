@@ -6,6 +6,7 @@ import { startPainting, stopPainting, sketch, eraseMode } from "./canvasInput.js
 import { step } from  "./gameOfLife.js";
 import { renderArray } from "./canvasOutput.js";
 import { CanvasData } from "./canvasData.js";
+import { DrawingData } from "./DrawingData.js";
 
 //Code to decalare the variables that must have a global scope
 let gameArray;
@@ -23,15 +24,46 @@ window.addEventListener("load", (event)=>{
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
   genNoHTML =document.getElementById("genNo.");
-  canvas.addEventListener('mousedown', (event)=> startPainting(event, gameArray, canvasData, true));
+  canvas.addEventListener('mousedown', (event)=>{
+    var mouseEvent=true;
+    var drawingData= getDrawingData(event, mouseEvent);
+    startPainting(drawingData, gameArray, canvasData);
+  } );
   canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvasData));
-  canvas.addEventListener('mousemove', (event)=> sketch(event, gameArray, canvasData, true));
-  canvas.addEventListener('touchstart', (event)=> startPainting(event, gameArray, canvasData, false));
+  canvas.addEventListener('mousemove', (event)=>{
+    var mouseEvent=true;
+    var drawingData= getDrawingData(event, mouseEvent);
+    sketch(drawingData, gameArray, canvasData)
+  } );
+  canvas.addEventListener('touchstart', (event)=>{
+    var mouseEvent=false;
+    var drawingData= getDrawingData(event, mouseEvent);
+    sketch(drawingData, gameArray, canvasData)
+  } );
   canvas.addEventListener('touchend', (event)=> stopPainting(gameArray, canvasData));
-  canvas.addEventListener('touchmove', (event)=> startPainting(event, gameArray, canvasData, false));
+  canvas.addEventListener('touchmove', (event)=>{
+    var mouseEvent=false;
+    var drawingData= getDrawingData(event, mouseEvent);
+    sketch(drawingData, gameArray, canvasData)
+  } );
 })
 
 window.addEventListener("resize", (event)=>{setCanvasObj();})
+
+function getDrawingData(event, mouseEvent){
+  var rect= event.target.getBoundingClientRect();
+    var mouseEvent=true;
+    if (mouseEvent){
+      var clientY = event.clientY;
+      var clientX = event.clientX
+    }
+    else{
+      var clientY = event.touches[0].clientY;
+      var clientX = event.touches[0].clientX;
+    }
+  var drawingData = new DrawingData(rect, clientX, clientY);
+  return drawingData;
+}
 
 //Procedure to move the game on 1 generation
 function stepGame(){
@@ -40,6 +72,7 @@ function stepGame(){
   gameArray=swap;
   genNo++
   genNoHTML.innerHTML=genNo;
+  renderArray(canvasData, newGameArray);
 }
 
 //Procedure to reset the game
@@ -80,22 +113,18 @@ function animate() {
   var newSpeed=findSpeed();
   if(speed!=newSpeed){
     run();
+    return
   }
-  else{
-    if (value == speed) {
-        value=0;
-        
-        if(stopSim==false){
-          stepGame();
-          requestAnimationFrame((t) => animate(t));
-        }
-      } 
-      else {
-        value++;
-        requestAnimationFrame((t) => animate(t));
-      }
-  }
-  
+  if (value == speed) {
+    value=0;        
+    if(stopSim==false){
+      stepGame();
+      requestAnimationFrame((t) => animate(t));
+    }
+    return
+  } 
+  value++;
+  requestAnimationFrame((t) => animate(t));
 }
 
 //Procedure to clear the intreval and stop it

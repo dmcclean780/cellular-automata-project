@@ -9,36 +9,25 @@ let erase = false;
 
 //Pair of functions to find the x and y coordinates of a mouse click
 //Taken and adapted from https://stackoverflow.com/questions/20516311/drawing-a-circle-in-a-canvas-on-mouseclick and https://stackoverflow.com/questions/40753016/mouse-coordinates-on-canvas-after-css-scale
-function getMousePositionX(canvasData, e, mouseEvent) { 
-    var rect = e.target.getBoundingClientRect();
-    if(mouseEvent){
-        var x = e.clientX - rect.left;
-    }
-    else{
-        var x = e.touches[0].clientX - rect.left;
-    }
-    
+function getMousePositionX(canvasData, drawingData) { 
+    var rect = drawingData.rect;
+    var x = drawingData.clientX - rect.left;
     var canvasX = Math.round(x * canvasData.width / canvasData.clientWidth);
     return canvasX;
 } 
 
-function getMousePositionY(canvasData,e, mouseEvent){
-    var rect = e.target.getBoundingClientRect();
-    if (mouseEvent){
-        var y = e.clientY - rect.top;
-    }
-    else{
-        var y = e.touches[0].clientY - rect.top;
-    }
+function getMousePositionY(canvasData,drawingData){
+    var rect = drawingData.rect;
+    var y = drawingData.clientY - rect.top;
     var canvasY = Math.round(y * canvasData.height / canvasData.clientHeight);
     return canvasY;
 }
 
 //Procedure to handle a mouse click
-function startPainting(event, gameArray, canvasData, mouseEvent){
+function startPainting(drawingData, gameArray, canvasData){
     paint = true;
-    var drawOrgX =getMousePositionX(canvasData, event, mouseEvent);
-    var drawOrgY =getMousePositionY(canvasData, event, mouseEvent);
+    var drawOrgX =getMousePositionX(canvasData, drawingData);
+    var drawOrgY =getMousePositionY(canvasData, drawingData);
     updateArray(drawOrgX, drawOrgY, gameArray);
     renderArray(canvasData, gameArray)
 }
@@ -48,10 +37,10 @@ function stopPainting(){
     
 }
             
-function sketch(event, gameArray, canvasData, mouseEvent){
+function sketch(drawingData, gameArray, canvasData){
     if (!paint) return;
-    var drawX =getMousePositionX(canvasData, event, mouseEvent);
-    var drawY =getMousePositionY(canvasData, event, mouseEvent);
+    var drawX =getMousePositionX(canvasData, drawingData);
+    var drawY =getMousePositionY(canvasData, drawingData);
     updateArray(drawX, drawY, gameArray);
     renderArray(canvasData, gameArray)
 }

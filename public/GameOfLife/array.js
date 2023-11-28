@@ -31,4 +31,4 @@ function modulo(dividend, divisor){
 }
 
 //Code to export the above function
-export{createArray, coordToIndex, indexToCoord};
+export{createArray, coordToIndex, indexToCoord, modulo};

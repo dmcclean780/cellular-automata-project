@@ -1,10 +1,5 @@
 //File containg code to output to the canvas
 
-
-
-
-
-
 //Procedure to update every pixel  
   function renderArray(canvasData, gameArray){ 
     var width=canvasData.width;
