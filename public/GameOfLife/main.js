@@ -17,6 +17,11 @@ let canvasData;
 let newGameArray;
 var genNoHTML;
 var genNo=0;
+var startTime;
+var thisTime;
+var fpsList=new Array(10);
+var frame=1;
+var fpsHTML;
 
 //Block of code to create the array and listen for a mouse click
 window.addEventListener("load", (event)=>{
@@ -24,7 +29,7 @@ window.addEventListener("load", (event)=>{
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
   genNoHTML =document.getElementById("genNo.");
-
+  fpsHTML=document.getElementById("fpsMeter");
   canvas.addEventListener('mousedown', (event)=>{
     var mouseEvent=true;
     var drawingData= getDrawingData(event, mouseEvent);
@@ -52,7 +57,6 @@ window.addEventListener("load", (event)=>{
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
   } );
-
 })
 
 window.addEventListener("resize", (event)=>{setCanvasObj();})
@@ -71,6 +75,7 @@ function getDrawingData(event, mouseEvent){
   var drawingData = new DrawingData(rect, clientX, clientY);
   return drawingData;
 }
+
 
 //Procedure to move the game on 1 generation
 function stepGame(){
@@ -95,6 +100,7 @@ function reset(){
 function findSpeed(){
   var n=speedSlider.value;
   var speed=60-n;
+  startTime=performance.now();
   return speed;
 }
 
@@ -106,12 +112,27 @@ function run(){
   value=0;
   stopSim=false;
   speed=findSpeed();
+  startTime=performance.now();
   requestAnimationFrame(animate);
 };
 
 
 //Recursive procedure to animate the simulation at the correct speed
 function animate() {
+  thisTime=performance.now();
+  var timeDiff=thisTime-startTime;
+  var fps=1000/timeDiff;
+  fpsList[frame-1]=fps;
+  if(frame==fpsList.length){
+    var sum=0
+    for(var i=0; i<fpsList.length; i++){
+      sum+=fpsList[i];
+    }
+    var avg=sum/fpsList.length;
+    fpsHTML.innerHTML=avg.toFixed(1);
+    frame=0;
+  }
+  frame++
   var newSpeed=findSpeed();
   if(speed!=newSpeed){
     run();
@@ -121,12 +142,12 @@ function animate() {
     value=0;        
     if(stopSim==false){
       stepGame();
-      requestAnimationFrame((t) => animate(t));
+      requestAnimationFrame(animate);
     }
     return
   } 
   value++;
-  requestAnimationFrame((t) => animate(t));
+  requestAnimationFrame(animate);
 }
 
 //Procedure to clear the intreval and stop it
