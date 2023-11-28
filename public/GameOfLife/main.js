@@ -118,9 +118,9 @@ function run(){
 
 
 //Recursive procedure to animate the simulation at the correct speed
-function animate() {
-  thisTime=performance.now();
-  var timeDiff=thisTime-startTime;
+function animate(t) {
+  var timeDiff=t-startTime;
+  startTime=t;
   var fps=1000/timeDiff;
   fpsList[frame-1]=fps;
   if(frame==fpsList.length){
@@ -142,12 +142,12 @@ function animate() {
     value=0;        
     if(stopSim==false){
       stepGame();
-      requestAnimationFrame(animate);
+      requestAnimationFrame((t)=>animate(t));
     }
     return
   } 
   value++;
-  requestAnimationFrame(animate);
+  requestAnimationFrame((t)=>animate(t));
 }
 
 //Procedure to clear the intreval and stop it
