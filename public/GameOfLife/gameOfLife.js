@@ -1,11 +1,8 @@
 //File containing code to execute the Simulation
-import { modulo } from "./array.js";
+var k=0;
 //Function to move the simulation on 1 generation
 function step(gameArray, canvasData, newGameArray){
-    var startTime=performance.now();
     newGameArray = gameOfLife(gameArray, canvasData, newGameArray);
-    var endTime=performance.now();
-    console.log(endTime-startTime);
     return newGameArray;
 }
 
@@ -15,7 +12,14 @@ function findNeighbors(gameArray, index, canvasData){
     var nextIndex;
     for(var i=-1; i<2; i++){
         for(var j=-1; j<2; j++){
+            k++;
             nextIndex=index+(canvasData.width*i+j);
+            if(k==canvasData.width || k==1){
+                nextIndex -= j;
+                if(k!=1){
+                    k=0;
+                }
+            }
             if(gameArray[nextIndex] == 0xff00ff00 && nextIndex != index && nextIndex>0 && nextIndex<canvasData.width*canvasData.height){
                 aliveNeighbors++;
             }

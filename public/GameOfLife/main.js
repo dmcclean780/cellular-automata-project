@@ -24,28 +24,35 @@ window.addEventListener("load", (event)=>{
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
   genNoHTML =document.getElementById("genNo.");
+
   canvas.addEventListener('mousedown', (event)=>{
     var mouseEvent=true;
     var drawingData= getDrawingData(event, mouseEvent);
     startPainting(drawingData, gameArray, canvasData);
   } );
+
   canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvasData));
+
   canvas.addEventListener('mousemove', (event)=>{
     var mouseEvent=true;
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
   } );
+
   canvas.addEventListener('touchstart', (event)=>{
     var mouseEvent=false;
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
   } );
+
   canvas.addEventListener('touchend', (event)=> stopPainting(gameArray, canvasData));
+
   canvas.addEventListener('touchmove', (event)=>{
     var mouseEvent=false;
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
   } );
+
 })
 
 window.addEventListener("resize", (event)=>{setCanvasObj();})
@@ -98,15 +105,10 @@ function findSpeed(){
 function run(){
   value=0;
   stopSim=false;
-  requestAnimationFrame(firstFrame);
+  speed=findSpeed();
+  requestAnimationFrame(animate);
 };
 
-
-//Procedure for what to do on the first frame
-function firstFrame() {
-  speed=findSpeed();
-  animate();
-}
 
 //Recursive procedure to animate the simulation at the correct speed
 function animate() {

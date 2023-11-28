@@ -3,17 +3,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="indexHTMLScript.js"></script>
 </head>
-<body>
-    <div class="justify-center">
-        <h1 class="text-3xl font-bold underline">Cellular Automata Simulator</h1>
-        <h2>By Daniel McClean</h2>
-        <button>Falling Sand</button>
-        <button onclick=goToGameOfLife()>Game Of Life</button>
+<body class="flex flex-row h-full bg-white text-black justify-center grow"></body>
+    <div class="flex flex-col justify-center grow">
+        <div class="text-3xl font-bold underline justify-self-center w-3/6">Cellular Automata Simulator</div>
+        <div>By Daniel McClean</div>
+        <button class=" bg-white text-black px-4 m-2 border-gray-600 border-2 rounded justify-self-center[75vh]">Falling Sand</button>            <button onclick=goToGameOfLife() class=" bg-white text-black px-4 m-2 border-gray-600 border-2 rounded">Game Of Life</button>
         <p>Created 25/10/2023</p>
-    </div>
-    <h1 class="text-3xl font-bold underline">Cellular Automata Simulator</h1>
-    <h2>By Daniel McClean</h2>
-    <button>Falling Sand</button>
-    <button onclick=goToGameOfLife()>Game Of Life</button>
-    <p>Created 25/10/2023</p>
+    </div>   
 </body>
