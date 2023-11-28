@@ -120,15 +120,19 @@ function run(){
 //Recursive procedure to animate the simulation at the correct speed
 function animate(t) {
   var timeDiff=t-startTime;
+  console.log("diff: ",timeDiff);
   startTime=t;
   var fps=1000/timeDiff;
+  console.log("fps: ",fps);
   fpsList[frame-1]=fps;
   if(frame==fpsList.length){
     var sum=0
     for(var i=0; i<fpsList.length; i++){
       sum+=fpsList[i];
     }
+    console.log("sum: ", sum);
     var avg=sum/fpsList.length;
+    console.log("avg: ",avg);
     fpsHTML.innerHTML=avg.toFixed(1);
     frame=0;
   }
