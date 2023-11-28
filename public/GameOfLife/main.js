@@ -17,8 +17,7 @@ let canvasData;
 let newGameArray;
 var genNoHTML;
 var genNo=0;
-var startTime;
-var thisTime;
+var startTime=0;
 var fpsList=new Array(10);
 var frame=1;
 var fpsHTML;
@@ -100,7 +99,6 @@ function reset(){
 function findSpeed(){
   var n=speedSlider.value;
   var speed=60-n;
-  startTime=performance.now();
   return speed;
 }
 
@@ -112,7 +110,6 @@ function run(){
   value=0;
   stopSim=false;
   speed=findSpeed();
-  startTime=performance.now();
   requestAnimationFrame(animate);
 };
 
