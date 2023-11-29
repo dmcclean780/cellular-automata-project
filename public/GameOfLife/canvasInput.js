@@ -43,50 +43,57 @@ function sketch(drawingData, gameArray, canvasData){
     if (!paint) return;
     var curX=getMousePositionX(canvasData, drawingData);
     var curY =getMousePositionY(canvasData, drawingData);
+    console.log("origin:" ,orgX, " ", orgY);
+    console.log("current Pos:" ,curX, " ", curY);
     drawLine(curX, curY, gameArray, canvasData);
     renderArray(canvasData, gameArray);
     orgX=curX;
     orgY=curY;
 }
 
-function drawLine(curX, curY, gameArray){
-    var dx = Math.abs(curX-orgX);
-    if(orgX<curX){
-        var sx=1;
+//Corrected Working Algorithim found at https://stackoverflow.com/questions/7478501/how-to-get-smooth-mouse-events-for-a-canvas-drawing-style-app
+function drawLine(curX, curY, gameArray) {
+    var x1 = curX,
+        x2 = orgX, y1 = curY,
+        y2 = orgY;
+    var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
+    if (steep) {
+        var x = x1;
+        x1 = y1;
+        y1 = x;
+        var y = y2;
+        y2 = x2;
+        x2 = y;
     }
-    else{
-        var sx =-1;
+    if (x1 > x2) {
+        var x = x1;
+        x1 = x2;
+        x2 = x;
+        var y = y1;
+        y1 = y2;
+        y2 = y;
     }
-    var dy = Math.abs(curY-orgY);
-    if(orgY<curY){
-        var sy=1;
+    var dx = x2 - x1,
+        dy = Math.abs(y2 - y1),
+        error = 0,
+        de = dy / dx,
+        yStep = -1,
+        y = y1;
+    if (y1 < y2) {
+        yStep = 1;
     }
-    else{
-        var sy =-1;
-    }
-    var error = dx+dy;
-    while(true){
-        updateArray(orgX, orgY, gameArray);
-        if(orgX==curX && orgY == curY){
-            return
+    for (var x = x1; x < x2; x++) {
+        if (steep) {
+            updateArray(y, x, gameArray)
+        } else {
+            updateArray(x, y, gameArray);
         }
-        var e2 =2*error;
-        if(e2 >= dy){
-            if(orgX == curX){
-                return
-            }
-            error+=dy;
-            orgX+=sx;
-        }
-        if(e2 <= dx){
-            if(orgY == curY){
-                return
-            }
-            error+=dx;
-            orgY+=sy;
+        error += de;
+        if (error >= 0.5) {
+            y += yStep;
+            error -= 1.0;
         }
     }
-
 }
 
 
