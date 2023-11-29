@@ -49,29 +49,67 @@ function sketch(drawingData, gameArray, canvasData){
 }
 
 function drawLine(curX, curY, gameArray, canvasData){
-    if(orgX>curX){
-        var temp=orgX;
-        orgX=curX;
-        curX=temp;
-    }
-    if(orgY>curY){
-        var temp=orgY;
-        orgY=curY;
-        curY=temp;
-    }
-    var dx = curX-orgX;
-    var dy = curY-orgY;
-    var D = 2*dy -dx;
-    var y = orgY
-    for(var x=orgX; x<curX+1; x++){
-        updateArray(x, y, gameArray);
-        if(D>0){
-            y=y+1;
-            D=D-2*dx;
+    if(Math.abs(curY-orgY)< Math.abs(curX-orgX)){
+        if(orgX>curX){
+            drawLineLow(curX, curY, orgX, orgY, gameArray);
         }
-        D=D+2*dy;
+        else{
+            drawLineLow(orgX, orgY, curX, curY, gameArray);
+        }
+    }
+    else{
+        if(orgY>curY){
+            drawLineHigh(curX, curY, orgX, orgY, gameArray);
+        }
+        else{
+            drawLineHigh(orgX, orgY, curX, curY, gameArray);
+        }
     }
     renderArray(canvasData, gameArray)
+}
+
+function drawLineLow(X0, Y0, X1, Y1, gameArray){
+    var dx = X1-Y0;
+    var dy = Y1-X0;
+    var yi =1;
+    if(dy<0){
+        yi=-1;
+        dy=-dy;
+    }
+    var D = 2*dy -dx;
+    var y = Y0
+    for(var x=X0; x<X1; x++){
+        updateArray(x, y, gameArray);
+        if(D>0){
+            y=y+yi;
+            D=D+2*(dy-dx);
+        }
+        else{
+            D=D+2*dy;
+        }
+    }
+}
+
+function drawLineHigh(X0, Y0, X1, Y1, gameArray){
+    var dx = X1-X0;
+    var dy = Y1-Y0;
+    var xi =1;
+    if(dx<0){
+        xi=-1;
+        dx=-dx;
+    }
+    var D = 2*dx -dy;
+    var x = X0;
+    for(var y=Y0; y<Y1; y++){
+        updateArray(x, y, gameArray);
+        if(D>0){
+            x=x+xi;
+            D=D+2*(dx-dy);
+        }
+        else{
+            D=D+2*dx;
+        }
+    }
 }
 
 function eraseMode(eraseButton){
