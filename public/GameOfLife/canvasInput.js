@@ -49,11 +49,27 @@ function sketch(drawingData, gameArray, canvasData){
 }
 
 function drawLine(curX, curY, gameArray, canvasData){
+    if(orgX>curX){
+        var temp=orgX;
+        orgX=curX;
+        curX=temp;
+    }
+    if(orgY>curY){
+        var temp=orgY;
+        orgY=curY;
+        curY=temp;
+    }
     var dx = curX-orgX;
     var dy = curY-orgY;
+    var D = 2*dy -dx;
+    var y = orgY
     for(var x=orgX; x<curX+1; x++){
-        var y = Math.floor(orgY+dy*(x-orgX)/dx);
         updateArray(x, y, gameArray);
+        if(D>0){
+            y=y+1;
+            D=D-2*dx;
+        }
+        D=D+2*dy;
     }
     renderArray(canvasData, gameArray)
 }
