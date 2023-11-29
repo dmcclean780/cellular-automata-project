@@ -53,7 +53,6 @@ window.addEventListener("load", (event)=>{
   canvas.addEventListener('touchend', (event)=> stopPainting(gameArray, canvasData));
 
   canvas.addEventListener('touchmove', (event)=>{
-    event.stopPropagation();
     var mouseEvent=false;
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
