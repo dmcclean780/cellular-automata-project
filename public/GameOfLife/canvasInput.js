@@ -44,73 +44,51 @@ function sketch(drawingData, gameArray, canvasData){
     var curX=getMousePositionX(canvasData, drawingData);
     var curY =getMousePositionY(canvasData, drawingData);
     drawLine(curX, curY, gameArray, canvasData);
+    renderArray(canvasData, gameArray);
     orgX=curX;
     orgY=curY;
 }
 
-function drawLine(curX, curY, gameArray, canvasData){
-    if(Math.abs(curY-orgY)< Math.abs(curX-orgX)){
-        if(orgX>curX){
-            drawLineLow(curX, curY, orgX, orgY, gameArray);
-        }
-        else{
-            drawLineLow(orgX, orgY, curX, curY, gameArray);
-        }
+function drawLine(curX, curY, gameArray){
+    var dx = Math.abs(curX-orgX);
+    if(orgX<curX){
+        var sx=1;
     }
     else{
-        if(orgY>curY){
-            drawLineHigh(curX, curY, orgX, orgY, gameArray);
+        var sx =-1;
+    }
+    var dy = Math.abs(curY-orgY);
+    if(orgY<curY){
+        var sy=1;
+    }
+    else{
+        var sy =-1;
+    }
+    var error = dx+dy;
+    while(true){
+        updateArray(orgX, orgY, gameArray);
+        if(orgX==curX && orgY == curY){
+            return
         }
-        else{
-            drawLineHigh(orgX, orgY, curX, curY, gameArray);
+        var e2 =2*error;
+        if(e2 >= dy){
+            if(orgX == curX){
+                return
+            }
+            error+=dy;
+            orgX+=sx;
+        }
+        if(e2 <= dx){
+            if(orgY == curY){
+                return
+            }
+            error+=dx;
+            orgY+=sy;
         }
     }
-    renderArray(canvasData, gameArray)
+
 }
 
-function drawLineLow(X0, Y0, X1, Y1, gameArray){
-    var dx = X1-Y0;
-    var dy = Y1-X0;
-    var yi =1;
-    if(dy<0){
-        yi=-1;
-        dy=-dy;
-    }
-    var D = 2*dy -dx;
-    var y = Y0
-    for(var x=X0; x<X1; x++){
-        updateArray(x, y, gameArray);
-        if(D>0){
-            y=y+yi;
-            D=D+2*(dy-dx);
-        }
-        else{
-            D=D+2*dy;
-        }
-    }
-}
-
-function drawLineHigh(X0, Y0, X1, Y1, gameArray){
-    var dx = X1-X0;
-    var dy = Y1-Y0;
-    var xi =1;
-    if(dx<0){
-        xi=-1;
-        dx=-dx;
-    }
-    var D = 2*dx -dy;
-    var x = X0;
-    for(var y=Y0; y<Y1; y++){
-        updateArray(x, y, gameArray);
-        if(D>0){
-            x=x+xi;
-            D=D+2*(dx-dy);
-        }
-        else{
-            D=D+2*dx;
-        }
-    }
-}
 
 function eraseMode(eraseButton){
     if(!erase){
