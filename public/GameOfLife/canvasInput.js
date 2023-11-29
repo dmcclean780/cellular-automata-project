@@ -6,6 +6,8 @@ import { coordToIndex } from "./array.js";
 
 let paint = false;
 let erase = false;
+let orgX;
+let orgY;
 
 //Pair of functions to find the x and y coordinates of a mouse click
 //Taken and adapted from https://stackoverflow.com/questions/20516311/drawing-a-circle-in-a-canvas-on-mouseclick and https://stackoverflow.com/questions/40753016/mouse-coordinates-on-canvas-after-css-scale
@@ -26,9 +28,9 @@ function getMousePositionY(canvasData,drawingData){
 //Procedure to handle a mouse click
 function startPainting(drawingData, gameArray, canvasData){
     paint = true;
-    var drawOrgX =getMousePositionX(canvasData, drawingData);
-    var drawOrgY =getMousePositionY(canvasData, drawingData);
-    updateArray(drawOrgX, drawOrgY, gameArray);
+    orgX =getMousePositionX(canvasData, drawingData);
+    orgY =getMousePositionY(canvasData, drawingData);
+    updateArray(orgX, orgY, gameArray);
     renderArray(canvasData, gameArray)
 }
 
@@ -39,9 +41,20 @@ function stopPainting(){
             
 function sketch(drawingData, gameArray, canvasData){
     if (!paint) return;
-    var drawX =getMousePositionX(canvasData, drawingData);
-    var drawY =getMousePositionY(canvasData, drawingData);
-    updateArray(drawX, drawY, gameArray);
+    var curX=getMousePositionX(canvasData, drawingData);
+    var curY =getMousePositionY(canvasData, drawingData);
+    drawLine(curX, curY, gameArray, canvasData);
+    orgX=curX;
+    orgY=curY;
+}
+
+function drawLine(curX, curY, gameArray, canvasData){
+    var dx = curX-orgX;
+    var dy = curY-orgY;
+    for(var x=orgX; x<curX+1; x++){
+        var y = Math.floor(orgY+dy*(x-orgX)/dx);
+        updateArray(x, y, gameArray);
+    }
     renderArray(canvasData, gameArray)
 }
 

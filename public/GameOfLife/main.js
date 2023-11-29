@@ -21,6 +21,7 @@ var startTime=0;
 var fpsList=new Array(10);
 var frame=1;
 var fpsHTML;
+var sum=0;
 
 //Block of code to create the array and listen for a mouse click
 window.addEventListener("load", (event)=>{
@@ -46,7 +47,7 @@ window.addEventListener("load", (event)=>{
   canvas.addEventListener('touchstart', (event)=>{
     var mouseEvent=false;
     var drawingData= getDrawingData(event, mouseEvent);
-    sketch(drawingData, gameArray, canvasData)
+    startPainting(drawingData, gameArray, canvasData)
   } );
 
   canvas.addEventListener('touchend', (event)=> stopPainting(gameArray, canvasData));
@@ -62,7 +63,6 @@ window.addEventListener("resize", (event)=>{setCanvasObj();})
 
 function getDrawingData(event, mouseEvent){
   var rect= event.target.getBoundingClientRect();
-    var mouseEvent=true;
     if (mouseEvent){
       var clientY = event.clientY;
       var clientX = event.clientX
@@ -113,27 +113,23 @@ function run(){
   requestAnimationFrame(animate);
 };
 
-
-//Recursive procedure to animate the simulation at the correct speed
-function animate(t) {
+function findFPS(t){
   var timeDiff=t-startTime;
-  console.log("diff: ",timeDiff);
   startTime=t;
   var fps=1000/timeDiff;
-  console.log("fps: ",fps);
-  fpsList[frame-1]=fps;
+  sum += fps;
   if(frame==fpsList.length){
-    var sum=0
-    for(var i=0; i<fpsList.length; i++){
-      sum+=fpsList[i];
-    }
-    console.log("sum: ", sum);
     var avg=sum/fpsList.length;
-    console.log("avg: ",avg);
     fpsHTML.innerHTML=avg.toFixed(1);
+    sum=0;
     frame=0;
   }
   frame++
+}
+
+//Recursive procedure to animate the simulation at the correct speed
+function animate(t) {
+  findFPS(t);
   var newSpeed=findSpeed();
   if(speed!=newSpeed){
     run();
