@@ -57,7 +57,7 @@ function drawLine(curX, curY, gameArray){
     else{
         var sx =-1;
     }
-    var dy = Math.abs(curY-orgY);
+    var dy = -Math.abs(curY-orgY);
     if(orgY<curY){
         var sy=1;
     }
@@ -68,19 +68,19 @@ function drawLine(curX, curY, gameArray){
     while(true){
         updateArray(orgX, orgY, gameArray);
         if(orgX==curX && orgY == curY){
-            return
+            break
         }
         var e2 =2*error;
         if(e2 >= dy){
             if(orgX == curX){
-                return
+                break
             }
             error+=dy;
             orgX+=sx;
         }
         if(e2 <= dx){
             if(orgY == curY){
-                return
+                break
             }
             error+=dx;
             orgY+=sy;
