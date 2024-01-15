@@ -8,6 +8,7 @@ import { CanvasData } from "./canvasData.js";
 import { DrawingData } from "./DrawingData.js";
 
 //Code to decalare the variables that must have a global scope
+let elementSelector;
 let gameArray;
 let value =0;
 let stopSim=false;
@@ -29,6 +30,7 @@ window.addEventListener("load", (event)=>{
   newGameArray=createArray(canvasData);
   genNoHTML =document.getElementById("genNo.");
   fpsHTML=document.getElementById("fpsMeter");
+  elementSelector=document.getElementById("element-select");
   canvas.addEventListener('mousedown', (event)=>{
     var mouseEvent=true;
     var drawingData= getDrawingData(event, mouseEvent);
@@ -70,7 +72,8 @@ function getDrawingData(event, mouseEvent){
       var clientY = event.touches[0].clientY;
       var clientX = event.touches[0].clientX;
     }
-  var drawingData = new DrawingData(rect, clientX, clientY);
+  var colour=elementSelector.value;
+  var drawingData = new DrawingData(rect, clientX, clientY, colour);
   return drawingData;
 }
 
