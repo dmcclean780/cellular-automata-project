@@ -77,6 +77,15 @@ function getDrawingData(event, mouseEvent){
   return drawingData;
 }
 
+function setCanvasObj(){
+  const canvas=document.getElementById("canvas");
+  const width=canvas.width;
+  const height=canvas.height;
+  const ctx = canvas.getContext("2d");
+  const clientWidth=canvas.clientWidth;
+  const clientHeight=canvas.clientHeight;
+  canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
+}
 
 //Procedure to move the game on 1 generation
 function stepGame(){
@@ -103,8 +112,6 @@ function findSpeed(){
   var speed=60-n;
   return speed;
 }
-
-
 
 //Taken and adapted from https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
 //Procedure to start running the simulation
@@ -153,17 +160,6 @@ function animate(t) {
 function stop() {
   stopSim=true
 };
-
-
-function setCanvasObj(){
-  const canvas=document.getElementById("canvas");
-  const width=canvas.width;
-  const height=canvas.height;
-  const ctx = canvas.getContext("2d");
-  const clientWidth=canvas.clientWidth;
-  const clientHeight=canvas.clientHeight;
-  canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
-}
 
 //Sections of code to retrive buttons what to do when they are clicked
 var stepButton=document.getElementById("stepButton");
