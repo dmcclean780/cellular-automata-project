@@ -154,20 +154,6 @@ function stop() {
   stopSim=true
 };
 
-function randomiseArray(){
-  var width = canvasData.width;
-  var height= canvasData.height;
-  for(var i=0; i<width*height; i++){
-    var state=Math.random() < 0.5;
-    if(state){
-      gameArray[i]=0xff00ff00;
-    }
-    else{
-      gameArray[i]=0x00000000;
-    }
-  }
-  renderArray(canvasData, gameArray);
-}
 
 function setCanvasObj(){
   const canvas=document.getElementById("canvas");
@@ -178,6 +164,7 @@ function setCanvasObj(){
   const clientHeight=canvas.clientHeight;
   canvasData = new CanvasData(width, height, ctx, clientWidth, clientHeight);
 }
+
 //Sections of code to retrive buttons what to do when they are clicked
 var stepButton=document.getElementById("stepButton");
 stepButton.addEventListener("click", stepGame);
