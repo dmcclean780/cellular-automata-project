@@ -1,12 +1,12 @@
 //Controller JavaScript file linking all others to the html page
 
 //Code to import the required functions from other javaScript files
-import { createArray } from "./array.js";
-import { startPainting, stopPainting, sketch, eraseMode } from "./canvasInput.js";
+import { createArray } from "../utils/array.js";
+import { startPainting, stopPainting, sketch, eraseMode } from "../utils/canvasInput.js";
 import { step } from  "./gameOfLife.js";
-import { renderArray } from "./canvasOutput.js";
-import { CanvasData } from "./canvasData.js";
-import { DrawingData } from "./DrawingData.js";
+import { renderArray } from "../utils/canvasOutput.js";
+import { CanvasData } from "../utils/canvasData.js";
+import { DrawingData } from "../utils/DrawingData.js";
 
 //Code to decalare the variables that must have a global scope
 let gameArray;
@@ -71,7 +71,7 @@ function getDrawingData(event, mouseEvent){
       var clientY = event.touches[0].clientY;
       var clientX = event.touches[0].clientX;
     }
-  var drawingData = new DrawingData(rect, clientX, clientY);
+  var drawingData = new DrawingData(rect, clientX, clientY, 0xff00ff00);
   return drawingData;
 }
 

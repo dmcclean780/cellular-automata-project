@@ -30,8 +30,6 @@ function startPainting(drawingData, gameArray, canvasData){
     paint = true;
     orgX =getMousePositionX(canvasData, drawingData);
     orgY =getMousePositionY(canvasData, drawingData);
-    updateArray(orgX, orgY, gameArray);
-    renderArray(canvasData, gameArray)
 }
 
 function stopPainting(){
@@ -43,15 +41,13 @@ function sketch(drawingData, gameArray, canvasData){
     if (!paint) return;
     var curX=getMousePositionX(canvasData, drawingData);
     var curY =getMousePositionY(canvasData, drawingData);
-    console.log("origin:" ,orgX, " ", orgY);
-    console.log("current Pos:" ,curX, " ", curY);
-    drawLine(curX, curY, gameArray, canvasData);
+    drawLine(curX, curY, gameArray, drawingData);
     renderArray(canvasData, gameArray);
     orgX=curX;
     orgY=curY;
 }
 
-function drawLine(curX, curY, gameArray){
+function drawLine(curX, curY, gameArray, drawingData){
     var dx = Math.abs(curX-orgX);
     if(orgX<curX){
         var sx=1;
@@ -68,7 +64,7 @@ function drawLine(curX, curY, gameArray){
     }
     var error = dx+dy;
     while(true){
-        updateArray(orgX, orgY, gameArray);
+        updateArray(orgX, orgY, gameArray, drawingData);
         if(orgX==curX && orgY == curY){
             break
         }
@@ -105,13 +101,13 @@ function eraseMode(eraseButton){
 }
 
 //Procedure to update the gameArray item to be true
-function updateArray(x,y, gameArray){
+function updateArray(x,y, gameArray, drawingData){
     var index = coordToIndex(x,y, canvas)
     if(erase){
         gameArray[index]=0x00000000;
     }
     else{
-        gameArray[index]=0xff00ff00;
+        gameArray[index]=drawingData.colour;
     }    
 }
 

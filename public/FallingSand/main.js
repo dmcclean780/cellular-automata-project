@@ -1,11 +1,12 @@
 //Controller JavaScript file linking all others to the html page
 
 //Code to import the required functions from other javaScript files
-import { createArray } from "./array.js";
-import { startPainting, stopPainting, sketch, eraseMode } from "./canvasInput.js";
-import { renderArray } from "./canvasOutput.js";
-import { CanvasData } from "./canvasData.js";
-import { DrawingData } from "./DrawingData.js";
+import { createArray } from "../utils/array.js";
+import { startPainting, stopPainting, sketch, eraseMode } from "../utils/canvasInput.js";
+import { renderArray } from "../utils/canvasOutput.js";
+import { CanvasData } from "../utils/canvasData.js";
+import { DrawingData } from "../utils/DrawingData.js";
+import {step} from "./step.js";
 
 //Code to decalare the variables that must have a global scope
 let elementSelector;
@@ -94,7 +95,7 @@ function stepGame(){
   gameArray=swap;
   genNo++
   genNoHTML.innerHTML=genNo;
-  renderArray(canvasData, newGameArray);
+  renderArray(canvasData, gameArray);
 }
 
 //Procedure to reset the game
@@ -178,9 +179,6 @@ var speedSlider=document.getElementById("speed");
 
 var eraseButton=document.getElementById("eraseButton");
 eraseButton.addEventListener("click", (event)=> eraseMode(eraseButton));
-
-var randoButton=document.getElementById("random");
-randoButton.addEventListener("click", randomiseArray)
 
 
 
