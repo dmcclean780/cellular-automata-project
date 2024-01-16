@@ -30,6 +30,8 @@ function startPainting(drawingData, gameArray, canvasData){
     paint = true;
     orgX =getMousePositionX(canvasData, drawingData);
     orgY =getMousePositionY(canvasData, drawingData);
+    updateArray(orgX, orgY, gameArray, drawingData);
+    renderArray(canvasData, gameArray);
 }
 
 function stopPainting(){
