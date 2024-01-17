@@ -1,4 +1,4 @@
-import { Sand } from "./Elements.js";
+import { Sand, Water, Stone, Void } from "./Elements.js";
 
 function step(gameArray, canvasData, newGameArray){
     newGameArray=gameArray.slice()
@@ -9,6 +9,19 @@ function step(gameArray, canvasData, newGameArray){
             var element = new Sand
             newGameArray=element.move(i,gameArray, canvasData, newGameArray);
         }
+        if(colour==0xFF901E){
+            var element = new Water
+            newGameArray=element.move(i,gameArray, canvasData, newGameArray);
+        }
+        if(colour==0xA9A9A9){
+            var element = new Stone
+            newGameArray=element.move(i,gameArray, canvasData, newGameArray);
+        }
+        if(colour==0x000000){
+            var element = new Void
+            newGameArray=element.move(i,gameArray, canvasData, newGameArray);
+        }
+        
         
     }
     return newGameArray;
