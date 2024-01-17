@@ -1,77 +1,153 @@
+import { getElement } from "./ElementColourMap.js";
+
 class Element{
-    move(i, gameArray, canvasData, newGameArray){
+    density=0;
+    move(i, gameArray, canvasData, newGameArray, updatedPositions){
         return newGameArray;
     }
 }
 
-class Void extends Element{
+class Empty extends Element{
+    density=0;
 }
 
 class Sand extends Element{
-
-    move(i, gameArray, canvasData, newGameArray){
-        if(gameArray[i+canvasData.width]==0 && i+canvasData.width<canvasData.width*canvasData.height){
-            newGameArray[i]=gameArray[i+canvasData.width];
-            newGameArray[i+canvasData.width]=gameArray[i];
-            return newGameArray
+    density = 1631;
+    move(i, gameArray, canvasData, newGameArray, updatedPositions){
+        if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
+            var neighbourColour=gameArray[i+canvasData.width]
+            neighbourColour&=0x00ffffff;
+            var neighbourElement=getElement(neighbourColour);
+            if(this.density>neighbourElement.density){
+                newGameArray[i]=gameArray[i+canvasData.width];
+                newGameArray[i+canvasData.width]=gameArray[i];
+                updatedPositions.push(i+canvasData.width)
+                return newGameArray
+            }
+            
         }
         var dir=Math.random() < 0.5;
         if(dir){
-            if(gameArray[i+canvasData.width-1]==0 && gameArray[i-1]==0  && i+canvasData.width-1<canvasData.width*canvasData.height){
-                newGameArray[i]=gameArray[i+canvasData.width-1];
-                newGameArray[i+canvasData.width-1]=gameArray[i];
-              return newGameArray
+            if(i+canvasData.width+1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width+1)==-1 && i%canvasData.width!=canvasData.width-1){
+                var adjacentColour=gameArray[i+1];
+                adjacentColour&=0x00ffffff;
+                var adjacentElement=getElement(adjacentColour);
+                if(this.density>adjacentElement.density){
+                    var neighbourColour=gameArray[i+canvasData.width+1]
+                    neighbourColour&=0x00ffffff;
+                    var neighbourElement=getElement(neighbourColour);
+                    if(this.density>neighbourElement.density){
+                        newGameArray[i]=gameArray[i+canvasData.width+1];
+                        newGameArray[i+canvasData.width+1]=gameArray[i];
+                        updatedPositions.push(i+canvasData.width+1)
+                        return newGameArray
+                    }
+                }
+                
             }
         }
-        if(gameArray[i+canvasData.width+1]==0 && gameArray[i+1]==0 && i+canvasData.width+1<canvasData.width*canvasData.height){
-            newGameArray[i]=gameArray[i+canvasData.width+1];
-            newGameArray[i+canvasData.width+1]=gameArray[i];
-          return newGameArray
+        if(i+canvasData.width-1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width-1)==-1 && i%canvasData.width!=0){
+            var adjacentColour=gameArray[i-1];
+            adjacentColour&=0x00ffffff;
+            var adjacentElement=getElement(adjacentColour);
+            if(this.density>adjacentElement.density){
+                var neighbourColour=gameArray[i+canvasData.width-1]
+                neighbourColour&=0x00ffffff;
+                var neighbourElement=getElement(neighbourColour);
+                if(this.density>neighbourElement.density){
+                    newGameArray[i]=gameArray[i+canvasData.width1];
+                    newGameArray[i+canvasData.width-1]=gameArray[i];
+                    updatedPositions.push(i+canvasData.width+1)
+                    return newGameArray
+                }
+            }
         }
         return newGameArray;
     }
 }
 
 class Water extends Element{
-    move(i, gameArray, canvasData, newGameArray){
-        if(gameArray[i+canvasData.width]==0 && i+canvasData.width<canvasData.width*canvasData.height){
-            newGameArray[i]=gameArray[i+canvasData.width];
-            newGameArray[i+canvasData.width]=gameArray[i];
-            return newGameArray
+    density=1000;
+    move(i, gameArray, canvasData, newGameArray, updatedPositions){
+        if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
+            var neighbourColour=gameArray[i+canvasData.width]
+            neighbourColour&=0x00ffffff;
+            var neighbourElement=getElement(neighbourColour);
+            if(this.density>neighbourElement.density){
+                newGameArray[i]=gameArray[i+canvasData.width];
+                newGameArray[i+canvasData.width]=gameArray[i];
+                updatedPositions.push(i+canvasData.width)
+                return newGameArray
+            }
+            
         }
         var dir=Math.random() < 0.5;
         if(dir){
-            if(gameArray[i+canvasData.width-1]==0 && gameArray[i-1]==0  && i+canvasData.width-1<canvasData.width*canvasData.height){
-                newGameArray[i]=gameArray[i+canvasData.width-1];
-                newGameArray[i+canvasData.width-1]=gameArray[i];
-              return newGameArray
+            if(i+canvasData.width+1<canvasData.width*canvasData.height&& updatedPositions.indexOf(i+canvasData.width+1)==-1 && i%canvasData.width!=canvasData.width-1){
+                var adjacentColour=gameArray[i+1];
+                adjacentColour&=0x00ffffff;
+                var adjacentElement=getElement(adjacentColour);
+                if(this.density>adjacentElement.density){
+                    var neighbourColour=gameArray[i+canvasData.width+1]
+                    neighbourColour&=0x00ffffff;
+                    var neighbourElement=getElement(neighbourColour);
+                    if(this.density>neighbourElement.density){
+                        newGameArray[i]=gameArray[i+canvasData.width+1];
+                        newGameArray[i+canvasData.width+1]=gameArray[i];
+                        updatedPositions.push(i+canvasData.width+1)
+                        return newGameArray
+                    }
+                }
+                
             }
         }
-        if(gameArray[i+canvasData.width+1]==0 && gameArray[i+1]==0 && i+canvasData.width+1<canvasData.width*canvasData.height){
-            newGameArray[i]=gameArray[i+canvasData.width+1];
-            newGameArray[i+canvasData.width+1]=gameArray[i];
-          return newGameArray
+        if(i+canvasData.width-1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width-1)==-1 && i%canvasData.width!=0){
+            var adjacentColour=gameArray[i-1];
+            adjacentColour&=0x00ffffff;
+            var adjacentElement=getElement(adjacentColour);
+            if(this.density>adjacentElement.density){
+                var neighbourColour=gameArray[i+canvasData.width-1]
+                neighbourColour&=0x00ffffff;
+                var neighbourElement=getElement(neighbourColour);
+                if(this.density>neighbourElement.density){
+                    newGameArray[i]=gameArray[i+canvasData.width1];
+                    newGameArray[i+canvasData.width-1]=gameArray[i];
+                    updatedPositions.push(i+canvasData.width+1)
+                    return newGameArray
+                }
+            }
         }
         dir=Math.random() < 0.5;
         if(dir){
-            if(gameArray[i+1]==0){
-                newGameArray[i]=gameArray[i+1];
-                newGameArray[i+1]=gameArray[i];
-              return newGameArray
+            if(updatedPositions.indexOf(i-1)==-1 && i%canvasData.width!=0){
+                var neighbourColour=gameArray[i-1]
+                neighbourColour&=0x00ffffff;
+                var neighbourElement=getElement(neighbourColour);
+                if(this.density>neighbourElement.density){
+                    newGameArray[i]=gameArray[i-1];
+                    newGameArray[i-1]=gameArray[i];
+                    updatedPositions.push(i-1)
+                    return newGameArray
+                }
             }
         }
-        if(gameArray[i-1]==0){
-            newGameArray[i]=gameArray[i-1];
-            newGameArray[i-1]=gameArray[i];
-          return newGameArray
+        if(updatedPositions.indexOf(i+1)==-1 && i%canvasData.width!=canvasData.width-1){
+            var neighbourColour=gameArray[i+1]
+            neighbourColour&=0x00ffffff;
+            var neighbourElement=getElement(neighbourColour);
+            if(this.density>neighbourElement.density){
+                newGameArray[i]=gameArray[i+1];
+                newGameArray[i+1]=gameArray[i];
+                updatedPositions.push(i+1)
+                return newGameArray
+            }
         }
-
         return newGameArray;
     }
 }
 
 class Stone extends Element{
-
+    density=Infinity
 }
 
-export{Sand, Water, Stone, Void}
+export{Sand, Water, Stone, Empty}

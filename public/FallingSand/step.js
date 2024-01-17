@@ -1,31 +1,29 @@
-import { Sand, Water, Stone, Void } from "./Elements.js";
+import {getElement } from "./ElementColourMap.js";
+import { Sand, Water } from "./Elements.js";
 
 function step(gameArray, canvasData, newGameArray){
+    var waterCount=0
+    var sandCount=0;
     newGameArray=gameArray.slice()
+    var updatedPositions=[];
     for(var i=0; i<gameArray.length; i++){
         var colour=gameArray[i];
         colour &= 0x00ffffff;
-        if(colour==0x8CE6F0){
-            var element = new Sand
-            newGameArray=element.move(i,gameArray, canvasData, newGameArray);
+        var element=getElement(colour);
+        if (element instanceof Sand){
+            sandCount++
         }
-        if(colour==0xFF901E){
-            var element = new Water
-            newGameArray=element.move(i,gameArray, canvasData, newGameArray);
+        if(element instanceof Water){
+            waterCount++
         }
-        if(colour==0xA9A9A9){
-            var element = new Stone
-            newGameArray=element.move(i,gameArray, canvasData, newGameArray);
-        }
-        if(colour==0x000000){
-            var element = new Void
-            newGameArray=element.move(i,gameArray, canvasData, newGameArray);
-        }
-        
-        
+        newGameArray=element.move(i, gameArray, canvasData, newGameArray, updatedPositions);
     }
+    console.log("sand", sandCount);
+    console.log("water", waterCount);
     return newGameArray;
 }
+
+
 
 
 export {step};
