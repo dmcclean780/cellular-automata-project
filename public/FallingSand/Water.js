@@ -5,7 +5,7 @@ import { Empty } from "./Empty.js";
 
 class Water extends Element{
     density=1000;
-    dispersionRate=5;
+    dispersionRate=10;
 
     
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
@@ -63,18 +63,25 @@ class Water extends Element{
             neighbourColour&=0x00ffffff;
             var neighbourElement=getElement(neighbourColour);
             if(this.density>neighbourElement.density){
-                gameArray=newGameArray.slice()
                 for(var j=0; j<this.dispersionRate; j++){
                    
                     var neighbourColour=gameArray[i+j+1]
                     neighbourColour&=0x00ffffff;
                     var neighbourElement=getElement(neighbourColour);
                     if(updatedPositions.indexOf(i+j+1)==-1 && i%canvasData.width!=canvasData.width-1 && this.density>neighbourElement.density){
-                        newGameArray[i+j]=gameArray[i+j+1];
-                        newGameArray[i+j+1]=gameArray[i+j];
-                        updatedPositions.push(i+j+1)
-                        gameArray[i+j]=newGameArray[i+j];
-                        gameArray[i+j+1]=newGameArray[i+j+1];
+                        var neighbourColour=gameArray[i+j+canvasData.width]
+                        neighbourColour&=0x00ffffff;
+                        var neighbourElement=getElement(neighbourColour);
+                        if(this.density<=neighbourElement.density){
+                            newGameArray[i+j]=gameArray[i+j+1];
+                            newGameArray[i+j+1]=gameArray[i+j];
+                            updatedPositions.push(i+j+1)
+                            gameArray[i+j]=newGameArray[i+j];
+                            gameArray[i+j+1]=newGameArray[i+j+1];
+                        }
+                        else{
+                            return newGameArray
+                        }
                     }
                     else{
                         return newGameArray
@@ -88,18 +95,25 @@ class Water extends Element{
         neighbourColour&=0x00ffffff;
         var neighbourElement=getElement(neighbourColour);
         if(this.density>neighbourElement.density){
-            gameArray=newGameArray.slice()
             for(var j=0; j<this.dispersionRate; j++){
                 
                 var neighbourColour=newGameArray[i-j-1]
                 neighbourColour&=0x00ffffff;
                 var neighbourElement=getElement(neighbourColour);
                 if(updatedPositions.indexOf(i-j-1)==-1 && i%canvasData.width!=0 && this.density>neighbourElement.density && i-j-1<canvasData.width*canvasData.height){
-                    newGameArray[i-j]=gameArray[i-j-1];
-                    newGameArray[i-j-1]=gameArray[i-j];
-                    updatedPositions.push(i-j-1)
-                    gameArray[i-j]=newGameArray[i-j];
-                    gameArray[i-j-1]=newGameArray[i-j-1];
+                    var neighbourColour=newGameArray[i-j+canvasData.width]
+                    neighbourColour&=0x00ffffff;
+                    var neighbourElement=getElement(neighbourColour);
+                    if(this.density<=neighbourElement.density){
+                        newGameArray[i-j]=gameArray[i-j-1];
+                        newGameArray[i-j-1]=gameArray[i-j];
+                        updatedPositions.push(i-j-1)
+                        gameArray[i-j]=newGameArray[i-j];
+                        gameArray[i-j-1]=newGameArray[i-j-1];
+                    }
+                    else{
+                        return newGameArray
+                    }
                 }
                 else{
                     return newGameArray
