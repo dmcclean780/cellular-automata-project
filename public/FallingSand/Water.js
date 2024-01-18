@@ -1,8 +1,11 @@
 import {Element} from "./Elements.js"
 import {getElement } from "./ElementColourMap.js";
+import { Empty } from "./Empty.js";
+
 
 class Water extends Element{
     density=1000;
+    dispersionRate=5;
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var neighbourColour=gameArray[i+canvasData.width]
@@ -54,30 +57,40 @@ class Water extends Element{
         }
         dir=Math.random() < 0.5;
         if(dir){
-            if(updatedPositions.indexOf(i-1)==-1 && i%canvasData.width!=0){
-                var neighbourColour=gameArray[i-1]
+            for(var j=0; j<this.dispersionRate; j++){
+                gameArray=newGameArray.slice()
+                var neighbourColour=gameArray[i+j+1]
                 neighbourColour&=0x00ffffff;
                 var neighbourElement=getElement(neighbourColour);
-                if(this.density>neighbourElement.density){
-                    newGameArray[i]=gameArray[i-1];
-                    newGameArray[i-1]=gameArray[i];
-                    updatedPositions.push(i-1)
+                if(updatedPositions.indexOf(i+j+1)==-1 && i%canvasData.width!=canvasData.width-1 && this.density>neighbourElement.density){
+                    newGameArray[i+j]=gameArray[i+j+1];
+                    newGameArray[i+j+1]=gameArray[i+j];
+                    updatedPositions.push(i+j+1)
+                }
+                else{
+                    return newGameArray
+                }
+            }
+            return newGameArray
+        }
+        if(!dir){
+            for(var j=0; j<this.dispersionRate; j++){
+                gameArray=newGameArray.slice()
+                var neighbourColour=newGameArray[i-j-1]
+                neighbourColour&=0x00ffffff;
+                var neighbourElement=getElement(neighbourColour);
+                if(updatedPositions.indexOf(i-j-1)==-1 && i%canvasData.width!=0 && this.density>neighbourElement.density && i-j-1<canvasData.width*canvasData.height){
+                    newGameArray[i-j]=gameArray[i-j-1];
+                    newGameArray[i-j-1]=gameArray[i-j];
+                    updatedPositions.push(i-j-1)
+                }
+                else{
                     return newGameArray
                 }
             }
         }
-        if(updatedPositions.indexOf(i+1)==-1 && i%canvasData.width!=canvasData.width-1){
-            var neighbourColour=gameArray[i+1]
-            neighbourColour&=0x00ffffff;
-            var neighbourElement=getElement(neighbourColour);
-            if(this.density>neighbourElement.density){
-                newGameArray[i]=gameArray[i+1];
-                newGameArray[i+1]=gameArray[i];
-                updatedPositions.push(i+1)
-                return newGameArray
-            }
-        }
-        return newGameArray;
+        
+        return newGameArray
     }
 }
 
