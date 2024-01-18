@@ -3,6 +3,9 @@ import {getElement } from "./ElementColourMap.js";
 
 class Sand extends Element{
     density = 1631;
+    dispersionRate=0
+
+    
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var neighbourColour=gameArray[i+canvasData.width]

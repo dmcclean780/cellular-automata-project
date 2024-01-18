@@ -6,6 +6,8 @@ import { Empty } from "./Empty.js";
 class Water extends Element{
     density=1000;
     dispersionRate=5;
+
+    
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var neighbourColour=gameArray[i+canvasData.width]

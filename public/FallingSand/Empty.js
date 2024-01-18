@@ -3,6 +3,7 @@ import {getElement } from "./ElementColourMap.js";
 
 class Empty extends Element{
     density=0;
+    dispersionRate=0
 }
 
 export{Empty}
