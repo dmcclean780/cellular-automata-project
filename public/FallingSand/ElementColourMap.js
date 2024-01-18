@@ -1,19 +1,17 @@
-import { Sand, Water, Stone, Empty } from "./Elements.js";
+import { Sand } from "./Sand.js";
+import { Water } from "./Water.js";
+import { Stone } from "./Stone.js";
+import { Empty } from "./Empty.js";
 
-var empty = new Empty;
-var stone = new Stone;
-var sand = new Sand;
-var water = new Water;
+var colorToElementMap = {
+    0x000000: new Empty(),
+    0x8CE6F0: new Sand(),
+    0xFF901E: new Water(),
+    0xA9A9A9: new Stone()
+}
 
-
-var ElementColour=[ [0,empty], [0x8CE6F0, sand], [0xFF901E, water], [0xA9A9A9, stone] ]
-
-function getElement(colour){
-    for(var i=0; i<ElementColour.length; i++){
-        if (ElementColour[i][0]==colour){
-            return ElementColour[i][1];
-        }
-    }
+function getElement(color) {
+    return colorToElementMap[color]
 }
 
 export{getElement};

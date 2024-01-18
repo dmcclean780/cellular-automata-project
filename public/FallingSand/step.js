@@ -1,5 +1,6 @@
 import {getElement } from "./ElementColourMap.js";
-import { Sand, Water } from "./Elements.js";
+import { Sand} from "./Sand.js";
+import { Water } from "./Water.js";
 
 function step(gameArray, canvasData, newGameArray){
     var waterCount=0
