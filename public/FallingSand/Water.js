@@ -59,25 +59,38 @@ class Water extends Element{
         }
         dir=Math.random() < 0.5;
         if(dir){
-            for(var j=0; j<this.dispersionRate; j++){
+            var neighbourColour=gameArray[i+1]
+            neighbourColour&=0x00ffffff;
+            var neighbourElement=getElement(neighbourColour);
+            if(this.density>neighbourElement.density){
                 gameArray=newGameArray.slice()
-                var neighbourColour=gameArray[i+j+1]
-                neighbourColour&=0x00ffffff;
-                var neighbourElement=getElement(neighbourColour);
-                if(updatedPositions.indexOf(i+j+1)==-1 && i%canvasData.width!=canvasData.width-1 && this.density>neighbourElement.density){
-                    newGameArray[i+j]=gameArray[i+j+1];
-                    newGameArray[i+j+1]=gameArray[i+j];
-                    updatedPositions.push(i+j+1)
+                for(var j=0; j<this.dispersionRate; j++){
+                   
+                    var neighbourColour=gameArray[i+j+1]
+                    neighbourColour&=0x00ffffff;
+                    var neighbourElement=getElement(neighbourColour);
+                    if(updatedPositions.indexOf(i+j+1)==-1 && i%canvasData.width!=canvasData.width-1 && this.density>neighbourElement.density){
+                        newGameArray[i+j]=gameArray[i+j+1];
+                        newGameArray[i+j+1]=gameArray[i+j];
+                        updatedPositions.push(i+j+1)
+                        gameArray[i+j]=newGameArray[i+j];
+                        gameArray[i+j+1]=newGameArray[i+j+1];
+                    }
+                    else{
+                        return newGameArray
+                    }
                 }
-                else{
-                    return newGameArray
-                }
+                return newGameArray
             }
-            return newGameArray
+            
         }
-        if(!dir){
+        var neighbourColour=gameArray[i-1]
+        neighbourColour&=0x00ffffff;
+        var neighbourElement=getElement(neighbourColour);
+        if(this.density>neighbourElement.density){
+            gameArray=newGameArray.slice()
             for(var j=0; j<this.dispersionRate; j++){
-                gameArray=newGameArray.slice()
+                
                 var neighbourColour=newGameArray[i-j-1]
                 neighbourColour&=0x00ffffff;
                 var neighbourElement=getElement(neighbourColour);
@@ -85,14 +98,18 @@ class Water extends Element{
                     newGameArray[i-j]=gameArray[i-j-1];
                     newGameArray[i-j-1]=gameArray[i-j];
                     updatedPositions.push(i-j-1)
+                    gameArray[i-j]=newGameArray[i-j];
+                    gameArray[i-j-1]=newGameArray[i-j-1];
                 }
                 else{
                     return newGameArray
                 }
             }
-        }
         
+            return newGameArray
+        }
         return newGameArray
+            
     }
 }
 
