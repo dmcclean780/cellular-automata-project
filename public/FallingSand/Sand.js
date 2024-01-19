@@ -1,5 +1,4 @@
 import{Element} from "./Elements.js"
-import {getElement } from "./ElementColourMap.js";
 
 class Sand extends Element{
     density = 1631;
@@ -8,13 +7,9 @@ class Sand extends Element{
     
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
-            var neighbourColour=gameArray[i+canvasData.width]
-            neighbourColour&=0x00ffffff;
-            var neighbourElement=getElement(neighbourColour);
+            var neighbourElement = this.getNeighbourElement(gameArray, i+canvasData.width)
             if(this.density>neighbourElement.density){
-                newGameArray[i]=gameArray[i+canvasData.width];
-                newGameArray[i+canvasData.width]=gameArray[i];
-                updatedPositions.push(i+canvasData.width)
+                this.swapPositions(newGameArray, gameArray, updatedPositions, i, i+canvasData.width)
                 return newGameArray
             }
             
@@ -22,17 +17,11 @@ class Sand extends Element{
         var dir=Math.random() < 0.5;
         if(dir){
             if(i+canvasData.width+1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width+1)==-1 && i%canvasData.width!=canvasData.width-1){
-                var adjacentColour=gameArray[i+1];
-                adjacentColour&=0x00ffffff;
-                var adjacentElement=getElement(adjacentColour);
+                var adjacentElement = this.getNeighbourElement(gameArray, i+1);
                 if(this.density>adjacentElement.density){
-                    var neighbourColour=gameArray[i+canvasData.width+1]
-                    neighbourColour&=0x00ffffff;
-                    var neighbourElement=getElement(neighbourColour);
+                    var neighbourElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
                     if(this.density>neighbourElement.density){
-                        newGameArray[i]=gameArray[i+canvasData.width+1];
-                        newGameArray[i+canvasData.width+1]=gameArray[i];
-                        updatedPositions.push(i+canvasData.width+1)
+                        this.swapPositions(newGameArray,gameArray, updatedPositions, i, i+canvasData.width+1);
                         return newGameArray
                     }
                 }
@@ -40,17 +29,11 @@ class Sand extends Element{
             }
         }
         if(i+canvasData.width-1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width-1)==-1 && i%canvasData.width!=0){
-            var adjacentColour=gameArray[i-1];
-            adjacentColour&=0x00ffffff;
-            var adjacentElement=getElement(adjacentColour);
+            var adjacentElement=this.getNeighbourElement(gameArray, i-1);
             if(this.density>adjacentElement.density){
-                var neighbourColour=gameArray[i+canvasData.width-1]
-                neighbourColour&=0x00ffffff;
-                var neighbourElement=getElement(neighbourColour);
+                var neighbourElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
                 if(this.density>neighbourElement.density){
-                    newGameArray[i]=gameArray[i+canvasData.width-1];
-                    newGameArray[i+canvasData.width-1]=gameArray[i];
-                    updatedPositions.push(i+canvasData.width+1)
+                    this.swapPositions(newGameArray, gameArray, updatedPositions, i, i+canvasData.width-1);
                     return newGameArray
                 }
             }
