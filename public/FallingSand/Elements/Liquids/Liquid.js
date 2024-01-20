@@ -1,15 +1,16 @@
 import { Element } from "../Elements.js";
+import { Empty } from "../Empty.js";
 
 
 class Liquid extends Element{
-    dispertionRate=0;
+    dispertionRate;
     density=0;
 
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
-            var neighbourElement = this.getNeighbourElement(gameArray, i+canvasData.width)
-            if(this.density>neighbourElement.density){
+            var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+            if(this.density>destinationElement.density){
                 this.swapPositions(newGameArray, gameArray, updatedPositions, i, i+canvasData.width)
                 return newGameArray
             }
@@ -20,8 +21,8 @@ class Liquid extends Element{
             if(i+canvasData.width+1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width+1)==-1 && i%canvasData.width!=canvasData.width-1){
                 var adjacentElement = this.getNeighbourElement(gameArray, i+1);
                 if(this.density>adjacentElement.density){
-                    var neighbourElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
-                    if(this.density>neighbourElement.density){
+                    var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
+                    if(this.density>destinationElement.density){
                         this.swapPositions(newGameArray,gameArray, updatedPositions, i, i+canvasData.width+1);
                         return newGameArray
                     }
@@ -32,61 +33,51 @@ class Liquid extends Element{
         if(i+canvasData.width-1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width-1)==-1 && i%canvasData.width!=0){
             var adjacentElement=this.getNeighbourElement(gameArray, i-1);
             if(this.density>adjacentElement.density){
-                var neighbourElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
-                if(this.density>neighbourElement.density){
+                var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
+                if(this.density>destinationElement.density){
                     this.swapPositions(newGameArray, gameArray, updatedPositions, i, i+canvasData.width-1);
                     return newGameArray
                 }
             }
         }
         dir=Math.random() < 0.5;
+        var temp
         if(dir){
-            var adjacentElement = this.getNeighbourElement(gameArray, i+1);
-            if(this.density>adjacentElement.density){
-                for(var j=0; j<this.dispersionRate; j++){
-                    var adjacentElement = this.getNeighbourElement(gameArray, i+j+1);
-                    if(updatedPositions.indexOf(i+j+1)==-1 && i%canvasData.width<canvasData.width-1 && this.density>adjacentElement.density){
-                        var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width+1)
-                        if(this.density<=belowElement.density){
-                            this.swapPositions(newGameArray, gameArray, updatedPositions, i+j, i+j+1)
-                            gameArray[i+j]=newGameArray[i+j];
-                            gameArray[i+j+1]=newGameArray[i+j+1];
-                        }
-                        else{
-                            return newGameArray
-                        }
-                    }
-                    else{
-                        return newGameArray
-                    }
-                }
-                return newGameArray
-            }
-            
-        }
-        var adjacentElement = this.getNeighbourElement(gameArray, i-1);
-        if(this.density>adjacentElement.density){
-            for(var j=0; j<this.dispersionRate; j++){
-                var adjacentElement = this.getNeighbourElement(gameArray, i-j-1);
-                if(updatedPositions.indexOf(i-j-1)==-1 && i%canvasData.width!=0 && this.density>adjacentElement.density){
-                    var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width+1)
-                    if(this.density<=belowElement.density){
-                        this.swapPositions(newGameArray, gameArray, updatedPositions, i-j, i-j-1)
-                        gameArray[i-j]=newGameArray[i-j];
-                        gameArray[i-j-1]=newGameArray[i-j-1];
-                    }
-                    else{
-                        return newGameArray
-                    }
+            for(var j=0; j<this.dispertionRate; j++){
+                var adjacentElement = this.getNeighbourElement(newGameArray, i+1);
+                var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+                if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1){
+                    temp=newGameArray[i];
+                    newGameArray[i]=newGameArray[i+1];
+                    newGameArray[i+1]=temp
+                    updatedPositions.push(i+1);
+                    i=i+1
                 }
                 else{
                     return newGameArray
                 }
             }
-            return newGameArray
+            
+            
+        }
+        for(var j=0; j<this.dispertionRate; j++){
+            var adjacentElement = this.getNeighbourElement(newGameArray, i-1);
+            var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+            if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i-1)==false && i%canvasData.width!=0){
+                temp=newGameArray[i];
+                newGameArray[i]=newGameArray[i-1];
+                newGameArray[i-1]=temp
+                updatedPositions.push(i-1);
+                i=i-1
+            }
+            else{
+                return newGameArray
+            }
         }
         return newGameArray
     }
 }
+
+
 
 export{Liquid};

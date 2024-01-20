@@ -1,7 +1,7 @@
-import { Soild } from "../Solid.js";
+import { Solid } from "../Solid.js";
 
-class ImmovableSoild extends Soild{
-
+class ImmovableSoild extends Solid{
+    density = Infinity
 }
 
 export {ImmovableSoild};

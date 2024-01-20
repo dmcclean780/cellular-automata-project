@@ -1,4 +1,4 @@
-s
+
 import { MovableSolid } from "./MovableSolid.js";
 
 class Sand extends MovableSolid{

@@ -4,4 +4,4 @@ class Solid extends Element{
 
 }
 
-export {Soild}
+export {Solid}
