@@ -1,10 +1,6 @@
-import{Element} from "./Elements.js"
+import { Solid } from "../Solid.js";
 
-class Sand extends Element{
-    density = 1631;
-    dispersionRate=0
-
-    
+class MovableSolid extends Solid{
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var neighbourElement = this.getNeighbourElement(gameArray, i+canvasData.width)
@@ -42,4 +38,4 @@ class Sand extends Element{
     }
 }
 
-export{Sand}
+export {MovableSolid}

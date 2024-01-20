@@ -1,12 +1,11 @@
-import {Element} from "./Elements.js"
+import { Element } from "../Elements.js";
 
 
+class Liquid extends Element{
+    dispertionRate=0;
+    density=0;
 
-class Water extends Element{
-    density=1000;
-    dispersionRate=10;
 
-    
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var neighbourElement = this.getNeighbourElement(gameArray, i+canvasData.width)
@@ -87,8 +86,7 @@ class Water extends Element{
             return newGameArray
         }
         return newGameArray
-            
     }
 }
 
-export {Water}
+export{Liquid};

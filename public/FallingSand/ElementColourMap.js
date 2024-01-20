@@ -1,8 +1,8 @@
-import { Sand } from "./Sand.js";
-import { Water } from "./Water.js";
-import { Stone } from "./Stone.js";
-import { Empty } from "./Empty.js";
-import { Oil } from "./Oil.js";
+import { Sand } from "./Elements/Solids/MovableSolids/Sand.js";
+import { Water } from "./Elements/Liquids/Water.js";
+import { Stone } from "./Elements/Solids/ImmovableSolids/Stone.js";
+import { Empty } from "./Elements/Empty.js";
+import { Oil } from "./Elements/Liquids/Oil.js";
 
 var colorToElementMap = {
     0x000000: new Empty(),
