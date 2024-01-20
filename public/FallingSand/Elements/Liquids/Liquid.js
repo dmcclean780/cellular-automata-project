@@ -8,10 +8,14 @@ class Liquid extends Element{
 
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
+        var temp
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
             if(this.density>destinationElement.density){
-                this.swapPositions(newGameArray, gameArray, updatedPositions, i, i+canvasData.width)
+                temp=newGameArray[i];
+                newGameArray[i]=newGameArray[i+canvasData.width];
+                newGameArray[i+canvasData.width]=temp
+                updatedPositions.push(i+canvasData.width);
                 return newGameArray
             }
             
@@ -23,7 +27,10 @@ class Liquid extends Element{
                 if(this.density>adjacentElement.density){
                     var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
                     if(this.density>destinationElement.density){
-                        this.swapPositions(newGameArray,gameArray, updatedPositions, i, i+canvasData.width+1);
+                        temp=newGameArray[i];
+                        newGameArray[i]=newGameArray[i+canvasData.width+1];
+                        newGameArray[i+canvasData.width+1]=temp
+                        updatedPositions.push(i+canvasData.width+1);
                         return newGameArray
                     }
                 }
@@ -35,13 +42,15 @@ class Liquid extends Element{
             if(this.density>adjacentElement.density){
                 var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
                 if(this.density>destinationElement.density){
-                    this.swapPositions(newGameArray, gameArray, updatedPositions, i, i+canvasData.width-1);
+                    temp=newGameArray[i];
+                    newGameArray[i]=newGameArray[i+canvasData.width-1];
+                    newGameArray[i+canvasData.width-1]=temp
+                    updatedPositions.push(i+canvasData.width-1);
                     return newGameArray
                 }
             }
         }
         dir=Math.random() < 0.5;
-        var temp
         if(dir){
             for(var j=0; j<this.dispertionRate; j++){
                 var adjacentElement = this.getNeighbourElement(newGameArray, i+1);
