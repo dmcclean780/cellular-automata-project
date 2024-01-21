@@ -3,13 +3,15 @@ import { Water } from "./Elements/Liquids/Water.js";
 import { Stone } from "./Elements/Solids/ImmovableSolids/Stone.js";
 import { Empty } from "./Elements/Empty.js";
 import { Oil } from "./Elements/Liquids/Oil.js";
+import { Acid } from "./Elements/Liquids/Acid.js";
 
 var colorToElementMap = {
     0x000000: new Empty(),
     0x8CE6F0: new Sand(),
     0xFF901E: new Water(),
     0xA9A9A9: new Stone(),
-    0x0B86B8: new Oil()
+    0x0B86B8: new Oil(),
+    0x00FF00: new Acid()
 }
 
 function getElement(color) {
