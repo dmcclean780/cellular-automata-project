@@ -4,7 +4,7 @@ import { Empty } from "../Empty.js";
 
 class Liquid extends Element{
     dispertionRate;
-    density=0;
+    
 
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){

@@ -4,6 +4,7 @@ import { Stone } from "./Elements/Solids/ImmovableSolids/Stone.js";
 import { Empty } from "./Elements/Empty.js";
 import { Oil } from "./Elements/Liquids/Oil.js";
 import { Acid } from "./Elements/Liquids/Acid.js";
+import { Poison } from "./Elements/Liquids/Poison.js";
 
 var colorToElementMap = {
     0x000000: new Empty(),
@@ -11,7 +12,8 @@ var colorToElementMap = {
     0xFF901E: new Water(),
     0xA9A9A9: new Stone(),
     0x0B86B8: new Oil(),
-    0x00FF00: new Acid()
+    0x00FF00: new Acid(),
+    0x8515C7: new Poison(),
 }
 
 function getElement(color) {

@@ -3,6 +3,8 @@ import { Liquid } from "../../Liquids/Liquid.js";
 import { Solid } from "../Solid.js";
 
 class MovableSolid extends Solid{
+    inertialResistance;
+
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         var temp;
