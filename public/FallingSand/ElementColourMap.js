@@ -6,7 +6,7 @@ import { Oil } from "./Elements/Liquids/Oil.js";
 import { Acid } from "./Elements/Liquids/Acid.js";
 import { Poison } from "./Elements/Liquids/Poison.js";
 import { StrongAcid } from "./Elements/Liquids/StrongAcid.js";
-import { Earth } from "./Elements/Solids/ImmovableSolids/Earth.js";
+import { Wood } from "./Elements/Solids/ImmovableSolids/Wood.js";
 import { Bedrock } from "./Elements/Solids/ImmovableSolids/Bedrock.js";
 import { Coal } from "./Elements/Solids/MovableSolids/Coal.js";
 import { Dirt } from "./Elements/Solids/MovableSolids/Dirt.js";
@@ -20,10 +20,10 @@ var colorToElementMap = {
     0x00FF00: new StrongAcid(),
     0x8515C7: new Poison(),
     0x2FFFAD: new Acid(),
-    0x13458B: new Earth(),
+    0x2F66A1: new Wood(),
     0x424244: new Bedrock(),
     0x2B2B2E: new Coal(),
-    0x0C68B7: new Dirt(),
+    0x13458B: new Dirt(),
 }
 
 function getElement(color) {
