@@ -1,5 +1,4 @@
 import { Element } from "../Elements.js";
-import { Empty } from "../Empty.js";
 
 
 class Liquid extends Element{
