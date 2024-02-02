@@ -1,9 +1,9 @@
 import { getElement } from "../ElementColourMap.js";
 
 class Element{
-    density=0;
-    acidResistance=1;
-    poisonResistance=1;
+    density;
+    acidResistance;
+    poisonResistance;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         return newGameArray;
