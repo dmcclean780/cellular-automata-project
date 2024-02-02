@@ -14,6 +14,7 @@ class Liquid extends Element{
                 temp=newGameArray[i];
                 newGameArray[i]=newGameArray[i+canvasData.width];
                 newGameArray[i+canvasData.width]=temp
+                updatedPositions.push(i);
                 updatedPositions.push(i+canvasData.width);
                 return newGameArray
             }
@@ -29,6 +30,7 @@ class Liquid extends Element{
                         temp=newGameArray[i];
                         newGameArray[i]=newGameArray[i+canvasData.width+1];
                         newGameArray[i+canvasData.width+1]=temp
+                        updatedPositions.push(i);
                         updatedPositions.push(i+canvasData.width+1);
                         return newGameArray
                     }
@@ -44,6 +46,7 @@ class Liquid extends Element{
                     temp=newGameArray[i];
                     newGameArray[i]=newGameArray[i+canvasData.width-1];
                     newGameArray[i+canvasData.width-1]=temp
+                    updatedPositions.push(i);
                     updatedPositions.push(i+canvasData.width-1);
                     return newGameArray
                 }
@@ -58,6 +61,7 @@ class Liquid extends Element{
                     temp=newGameArray[i];
                     newGameArray[i]=newGameArray[i+1];
                     newGameArray[i+1]=temp
+                    updatedPositions.push(i);
                     updatedPositions.push(i+1);
                     i=i+1
                 }
@@ -75,6 +79,7 @@ class Liquid extends Element{
                 temp=newGameArray[i];
                 newGameArray[i]=newGameArray[i-1];
                 newGameArray[i-1]=temp
+                updatedPositions.push(i);
                 updatedPositions.push(i-1);
                 i=i-1
             }
