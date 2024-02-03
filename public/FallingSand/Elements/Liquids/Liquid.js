@@ -7,15 +7,10 @@ class Liquid extends Element{
 
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
-        var temp
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
             if(this.density>destinationElement.density){
-                temp=newGameArray[i];
-                newGameArray[i]=newGameArray[i+canvasData.width];
-                newGameArray[i+canvasData.width]=temp
-                updatedPositions.push(i);
-                updatedPositions.push(i+canvasData.width);
+                newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width)
                 return newGameArray
             }
             
@@ -27,11 +22,7 @@ class Liquid extends Element{
                 if(this.density>adjacentElement.density){
                     var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
                     if(this.density>destinationElement.density){
-                        temp=newGameArray[i];
-                        newGameArray[i]=newGameArray[i+canvasData.width+1];
-                        newGameArray[i+canvasData.width+1]=temp
-                        updatedPositions.push(i);
-                        updatedPositions.push(i+canvasData.width+1);
+                        newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width+1)
                         return newGameArray
                     }
                 }
@@ -43,11 +34,7 @@ class Liquid extends Element{
             if(this.density>adjacentElement.density){
                 var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
                 if(this.density>destinationElement.density){
-                    temp=newGameArray[i];
-                    newGameArray[i]=newGameArray[i+canvasData.width-1];
-                    newGameArray[i+canvasData.width-1]=temp
-                    updatedPositions.push(i);
-                    updatedPositions.push(i+canvasData.width-1);
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width-1)
                     return newGameArray
                 }
             }
@@ -58,11 +45,7 @@ class Liquid extends Element{
                 var adjacentElement = this.getNeighbourElement(newGameArray, i+1);
                 var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
                 if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1){
-                    temp=newGameArray[i];
-                    newGameArray[i]=newGameArray[i+1];
-                    newGameArray[i+1]=temp
-                    updatedPositions.push(i);
-                    updatedPositions.push(i+1);
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+1)
                     i=i+1
                 }
                 else{
@@ -76,11 +59,7 @@ class Liquid extends Element{
             var adjacentElement = this.getNeighbourElement(newGameArray, i-1);
             var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
             if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i-1)==false && i%canvasData.width!=0){
-                temp=newGameArray[i];
-                newGameArray[i]=newGameArray[i-1];
-                newGameArray[i-1]=temp
-                updatedPositions.push(i);
-                updatedPositions.push(i-1);
+                newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-1)
                 i=i-1
             }
             else{
@@ -89,6 +68,8 @@ class Liquid extends Element{
         }
         return newGameArray
     }
+
+    
 }
 
 

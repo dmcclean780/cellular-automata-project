@@ -10,17 +10,7 @@ class Gas extends Element{
         if(i-canvasData.width>0 && updatedPositions.indexOf(i-canvasData.width)==-1){
             var destinationElement = this.getNeighbourElement(gameArray, i-canvasData.width)
             if(this.density<destinationElement.density && !(destinationElement instanceof Solid)){
-                
-                //console.log("before",i,destinationElement, newGameArray[i].toString(16), newGameArray[i-canvasData.width].toString(16))
-                
-                temp=newGameArray[i];
-                newGameArray[i]=newGameArray[i-canvasData.width];
-                newGameArray[i-canvasData.width]=temp
-
-                //console.log("after",i,destinationElement, newGameArray[i].toString(16), newGameArray[i-canvasData.width].toString(16))
-
-                updatedPositions.push(i);
-                updatedPositions.push(i-canvasData.width);
+                newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-canvasData.width)
                 return newGameArray
             }
             
@@ -32,11 +22,7 @@ class Gas extends Element{
                 if(this.density<adjacentElement.density && !(adjacentElement instanceof Solid)){
                     var destinationElement=this.getNeighbourElement(gameArray, i-canvasData.width+1);
                     if(this.density<destinationElement.density && !(destinationElement instanceof Solid)){
-                        temp=newGameArray[i];
-                        newGameArray[i]=newGameArray[i-canvasData.width+1];
-                        newGameArray[i-canvasData.width+1]=temp
-                        updatedPositions.push(i);
-                        updatedPositions.push(i-canvasData.width+1);
+                        newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-canvasData.width+1)
                         return newGameArray
                     }
                 }
@@ -48,11 +34,7 @@ class Gas extends Element{
             if(this.density<adjacentElement.density && !(adjacentElement instanceof Solid)){
                 var destinationElement=this.getNeighbourElement(gameArray, i-canvasData.width-1);
                 if(this.density<destinationElement.density && !(destinationElement instanceof Solid)){
-                    temp=newGameArray[i];
-                    newGameArray[i]=newGameArray[i-canvasData.width-1];
-                    newGameArray[i-canvasData.width-1]=temp
-                    updatedPositions.push(i);
-                    updatedPositions.push(i-canvasData.width-1);
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-canvasData.width-1)
                     return newGameArray
                 }
             }
@@ -63,11 +45,7 @@ class Gas extends Element{
                 var adjacentElement = this.getNeighbourElement(newGameArray, i+1);
                 var aboveElement = this.getNeighbourElement(gameArray, i-canvasData.width)
                 if(this.density<adjacentElement.density && this.density>=aboveElement.density && !(adjacentElement instanceof Solid) && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1){
-                    temp=newGameArray[i];
-                    newGameArray[i]=newGameArray[i+1];
-                    newGameArray[i+1]=temp
-                    updatedPositions.push(i);
-                    updatedPositions.push(i+1);
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+1)
                     i=i+1
                 }
                 else{
@@ -81,11 +59,7 @@ class Gas extends Element{
             var adjacentElement = this.getNeighbourElement(newGameArray, i-1);
             var aboveElement = this.getNeighbourElement(gameArray, i-canvasData.width)
             if(this.density<adjacentElement.density && this.density>=aboveElement.density && !(adjacentElement instanceof Solid) && updatedPositions.includes(i-1)==false && i%canvasData.width!=0){
-                temp=newGameArray[i];
-                newGameArray[i]=newGameArray[i-1];
-                newGameArray[i-1]=temp
-                updatedPositions.push(i);
-                updatedPositions.push(i-1);
+                newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-1)
                 i=i-1
             }
             else{

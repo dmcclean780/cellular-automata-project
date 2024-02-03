@@ -12,23 +12,15 @@ class Acid extends Liquid{
             var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
             if(this.density>destinationElement.density || this.acidStrength>destinationElement.acidResistance){
                 if((this.acidStrength)/2>destinationElement.acidResistance){
-                    temp=newGameArray[i];
-                    newGameArray[i]=0x00000000;
-                    newGameArray[i+canvasData.width]=temp
-                    updatedPositions.push(i+canvasData.width);
+                    newGameArray=this.swapPositions2xAcid(newGameArray, updatedPositions, i, i+canvasData.width)
                     return newGameArray
                 }
                 if(this.acidStrength>destinationElement.acidResistance){
-                    newGameArray[i]=0x00000000;
-                    newGameArray[i+canvasData.width]=0x00000000
-                    updatedPositions.push(i+canvasData.width)
+                    newGameArray=this.swapPositionsAcid(newGameArray, updatedPositions, i, i+canvasData.width)
                     return newGameArray
                 }
                 else{
-                    temp=newGameArray[i];
-                    newGameArray[i]=newGameArray[i+canvasData.width];
-                    newGameArray[i+canvasData.width]=temp
-                    updatedPositions.push(i+canvasData.width);
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width);
                     return newGameArray
                 }
                 
@@ -43,23 +35,15 @@ class Acid extends Liquid{
                     var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
                     if(this.density>destinationElement.density || this.acidStrength>destinationElement.acidResistance){
                         if((this.acidStrength)/2>destinationElement.acidResistance){
-                            temp=newGameArray[i];
-                            newGameArray[i]=0x00000000;
-                            newGameArray[i+canvasData.width+1]=temp
-                            updatedPositions.push(i+canvasData.width+1);
+                            newGameArray=this.swapPositions2xAcid(newGameArray, updatedPositions, i, i+canvasData.width+1)
                             return newGameArray
                         }
                         if(this.acidStrength>destinationElement.acidResistance){
-                            newGameArray[i]=0x00000000
-                            newGameArray[i+canvasData.width+1]=0x00000000
-                            updatedPositions.push(i+canvasData.width);
+                            newGameArray=this.swapPositionsAcid(newGameArray, updatedPositions, i, i+canvasData.width+1)
                             return newGameArray
                         }
                         else{
-                            temp=newGameArray[i];
-                            newGameArray[i]=newGameArray[i+canvasData.width+1];
-                            newGameArray[i+canvasData.width+1]=temp
-                            updatedPositions.push(i+canvasData.width+1);
+                            newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width+1);
                             return newGameArray
                         }
                     }
@@ -73,23 +57,15 @@ class Acid extends Liquid{
                 var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
                 if(this.density>destinationElement.density || this.acidStrength>destinationElement.acidResistance){
                     if((this.acidStrength)/2>destinationElement.acidResistance){
-                        temp=newGameArray[i];
-                        newGameArray[i]=0x00000000;
-                        newGameArray[i+canvasData.width-1]=temp
-                        updatedPositions.push(i+canvasData.width-1);
+                        newGameArray=this.swapPositions2xAcid(newGameArray, updatedPositions, i, i+canvasData.width-1)
                         return newGameArray
                     }
                     if(this.acidStrength>destinationElement.acidResistance){
-                        newGameArray[i]=0x00000000
-                        newGameArray[i+canvasData.width-1]=0x00000000
-                        updatedPositions.push(i+canvasData.width);
+                        newGameArray=this.swapPositionsAcid(newGameArray, updatedPositions, i, i+canvasData.width-1)
                         return newGameArray
                     }
                     else{
-                        temp=newGameArray[i];
-                        newGameArray[i]=newGameArray[i+canvasData.width-1];
-                        newGameArray[i+canvasData.width-1]=temp
-                        updatedPositions.push(i+canvasData.width-1);
+                        newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width-1)
                         return newGameArray
                     }
                 }
@@ -102,23 +78,15 @@ class Acid extends Liquid{
                 var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
                 if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1 || this.acidStrength>adjacentElement.acidResistance){
                     if((this.acidStrength)/2>adjacentElement.acidResistance){
-                        temp=newGameArray[i];
-                        newGameArray[i]=0x00000000;
-                        newGameArray[i+1]=temp
-                        updatedPositions.push(i+1);
+                        newGameArray=this.swapPositions2xAcid(newGameArray, updatedPositions, i, i+1)
                     }
                     else{
                         if(this.acidStrength>adjacentElement.acidResistance){
-                            newGameArray[i]=0x00000000
-                            newGameArray[i+1]=0x00000000
-                            updatedPositions.push(i+1);
+                            newGameArray=this.swapPositionsAcid(newGameArray, updatedPositions, i, i+1)
                             return newGameArray
                         }
                         else{
-                            temp=newGameArray[i];
-                            newGameArray[i]=newGameArray[i+1];
-                            newGameArray[i+1]=temp
-                            updatedPositions.push(i+1);
+                            newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+1)
                         }
                     }
                     i=i+1
@@ -135,23 +103,15 @@ class Acid extends Liquid{
             var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
             if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i-1)==false && i%canvasData.width!=0 || this.acidStrength>adjacentElement.acidResistance){
                 if((this.acidStrength)/2>adjacentElement.acidResistance){
-                    temp=newGameArray[i];
-                    newGameArray[i]=0x00000000;
-                    newGameArray[i-1]=temp
-                    updatedPositions.push(i-1);
+                   newGameArray=this.swapPositions2xAcid(newGameArray, updatedPositions, i, i-1)
                 }
                 else{
                     if(this.acidStrength>adjacentElement.acidResistance){
-                        newGameArray[i]=0x00000000
-                        newGameArray[i-1]=0x00000000
-                        updatedPositions.push(i-1);
+                        newGameArray=this.swapPositionsAcid(newGameArray, updatedPositions, i, i-1)
                         return newGameArray
                     }
                     else{
-                        temp=newGameArray[i];
-                        newGameArray[i]=newGameArray[i-1];
-                        newGameArray[i-1]=temp
-                        updatedPositions.push(i-1);
+                        newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-1)
                     }
                 }
                 i=i-1
@@ -162,6 +122,9 @@ class Acid extends Liquid{
         }
         return newGameArray
     }
+
+    
+    
 }
 
 export{Acid}

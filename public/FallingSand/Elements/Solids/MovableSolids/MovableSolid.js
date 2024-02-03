@@ -6,14 +6,10 @@ class MovableSolid extends Solid{
 
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
-        var temp;
         if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
             var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
             if(this.density>destinationElement.density && destinationElement instanceof Liquid || destinationElement instanceof Empty){
-                temp=newGameArray[i];
-                newGameArray[i]=newGameArray[i+canvasData.width];
-                newGameArray[i+canvasData.width]=temp
-                updatedPositions.push(i+canvasData.width);
+                newGameArray=this.swapPositions(newGameArray, updatedPositions, i, i+canvasData.width)
                 return newGameArray
             }
             
@@ -25,10 +21,7 @@ class MovableSolid extends Solid{
                 if(this.density>adjacentElement.density){
                     var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
                     if(this.density>destinationElement.density && destinationElement instanceof Liquid || destinationElement instanceof Empty){
-                        temp=newGameArray[i];
-                        newGameArray[i]=newGameArray[i+canvasData.width+1];
-                        newGameArray[i+canvasData.width+1]=temp
-                        updatedPositions.push(i+canvasData.width+1);
+                        newGameArray=this.swapPositions(newGameArray, updatedPositions, i, i+canvasData.width+1)
                         return newGameArray
                     }
                 }
@@ -40,10 +33,7 @@ class MovableSolid extends Solid{
             if(this.density>adjacentElement.density){
                 var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
                 if(this.density>destinationElement.density && destinationElement instanceof Liquid || destinationElement instanceof Empty){
-                    temp=newGameArray[i];
-                    newGameArray[i]=newGameArray[i+canvasData.width-1];
-                    newGameArray[i+canvasData.width-1]=temp
-                    updatedPositions.push(i+canvasData.width-1);
+                    newGameArray=this.swapPositions(newGameArray, updatedPositions, i, i+canvasData.width-1)
                     return newGameArray
                 }
             }
