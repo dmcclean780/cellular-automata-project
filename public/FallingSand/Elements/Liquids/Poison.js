@@ -2,9 +2,10 @@ import { Liquid } from "./Liquid.js";
 
 class Poison extends Liquid{
     poisonStrength=0.5;
-    density=600;
+    density=999.99;
     acidResistance=0.3;
     dispertionRate=50;
+    poisonResistance=1;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         var temp
@@ -65,7 +66,7 @@ class Poison extends Liquid{
                 var adjacentElement = this.getNeighbourElement(newGameArray, i+1);
                 var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
                 if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1 || this.poisonStrength>adjacentElement.poisonResistance){
-                        if(this.poisonStrength>destinationElement.poisonResistance){
+                        if(this.poisonStrength>adjacentElement.poisonResistance){
                             newGameArray=this.swapPositionsPoison(newGameArray, updatedPositions, i, i+1)
                             return newGameArray;
                         }

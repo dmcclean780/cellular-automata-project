@@ -3,7 +3,7 @@ import { getElement } from "../ElementColourMap.js";
 class Element{
     density;
     acidResistance;
-    poisonResistance;
+    poisonResistance=1;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         return newGameArray;
