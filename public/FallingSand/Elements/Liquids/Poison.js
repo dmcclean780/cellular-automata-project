@@ -5,7 +5,7 @@ class Poison extends Liquid{
     density=999.99;
     acidResistance=0.3;
     dispertionRate=50;
-    poisonResistance=1;
+    terminalVelocity=3;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         var temp

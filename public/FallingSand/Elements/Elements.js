@@ -4,6 +4,7 @@ class Element{
     density;
     acidResistance;
     poisonResistance=1;
+    terminalVelocity;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         return newGameArray;
@@ -51,6 +52,22 @@ class Element{
         neighbourColour&=0x00ffffff;
         var neighbourElement=getElement(neighbourColour);
         return neighbourElement;
+    }
+
+    getVelocity(gameArray, i){
+        var velocity = gameArray[i];
+        velocity &= 0x0f000000;
+        velocity=velocity.toString(16)
+        velocity=Number(velocity[0]);
+        return velocity;
+    }
+
+    updateAlphaByte(newGameArray, alphaByte, i){
+        var colour=newGameArray[i].toString(16);
+        colour=colour.slice(0,1)+alphaByte.toString(16)+colour.slice(2);
+        colour="0x"+colour;
+        newGameArray[i]=Number(colour);
+        return newGameArray;
     }
 }
 

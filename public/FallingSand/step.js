@@ -23,9 +23,10 @@ function step(gameArray, canvasData, newGameArray){
             oilCount++;
         }
         if(element instanceof Sand){
-            sandCount++
+            console.log(data.toString(16), velocity.toString(16), colour.toString(16));
         }
         */
+    
         
         newGameArray=element.move(i, gameArray, canvasData, newGameArray, updatedPositions);
     }

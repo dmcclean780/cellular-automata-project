@@ -7,13 +7,24 @@ class Liquid extends Element{
 
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
-        if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
-            var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
-            if(this.density>destinationElement.density){
-                newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width)
-                return newGameArray
+        var velocity = this.getVelocity(gameArray, i)
+        var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+        if(this.density>belowElement.density){
+            for(var j=0; j<velocity; j++){
+                var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+                if(this.density>belowElement.density && updatedPositions.includes(i+canvasData.width)==false && i+canvasData.width<canvasData.width*canvasData.height){
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width)
+                    i=i+canvasData.width
+                }
+                else{
+                    return newGameArray
+                }
             }
-            
+            if(velocity<this.terminalVelocity){
+                velocity++;
+            }
+            newGameArray =this.updateAlphaByte(newGameArray, velocity, i)
+            return newGameArray;
         }
         var dir=Math.random() < 0.5;
         if(dir){

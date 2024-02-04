@@ -74,7 +74,8 @@ function getDrawingData(event, mouseEvent){
       var clientX = event.touches[0].clientX;
     }
   var colour=elementSelector.value;
-  var alpha = Math.floor(Math.random() * 50+206).toString(16);
+  var alpha = Math.floor(Math.random() * 15+206).toString(16);
+  alpha=alpha[0]+"1"
   colour=colour.slice(0,2)+alpha+colour.slice(2);
   var drawingData = new DrawingData(rect, clientX, clientY, colour);
   return drawingData;

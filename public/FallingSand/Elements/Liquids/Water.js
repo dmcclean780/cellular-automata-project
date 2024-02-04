@@ -8,6 +8,7 @@ class Water extends Liquid{
     density=1000;
     acidResistance=0.3;
     poisonResistance=0;
+    terminalVelocity=3;
     
 }
 

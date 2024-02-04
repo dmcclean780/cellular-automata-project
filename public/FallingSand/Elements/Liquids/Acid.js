@@ -5,7 +5,7 @@ class Acid extends Liquid{
     dispertionRate=50;
     acidStrength=0.5;
     acidResistance=0.5;
-    poisonResistance=1;
+    terminalVelocity=3;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         var temp
