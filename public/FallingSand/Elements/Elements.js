@@ -57,8 +57,7 @@ class Element{
     getVelocity(gameArray, i){
         var velocity = gameArray[i];
         velocity &= 0x0f000000;
-        velocity=velocity.toString(16)
-        velocity=Number(velocity[0]);
+        velocity=velocity  >> 24
         return velocity;
     }
 
