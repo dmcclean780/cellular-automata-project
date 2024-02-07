@@ -6,7 +6,7 @@ class MovableSolid extends Solid{
     inertialResistance;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
-        var velocity = this.getVelocity(gameArray, i)
+        var velocity = this.getAlpha(gameArray, i)
         var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
         if(this.density>belowElement.density){
             for(var j=0; j<velocity; j++){

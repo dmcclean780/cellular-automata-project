@@ -54,7 +54,7 @@ class Element{
         return neighbourElement;
     }
 
-    getVelocity(gameArray, i){
+    getAlpha(gameArray, i){
         var velocity = gameArray[i];
         velocity &= 0x0f000000;
         velocity=velocity  >> 24
@@ -62,10 +62,10 @@ class Element{
     }
 
     updateAlphaByte(newGameArray, alphaByte, i){
-        var colour=newGameArray[i].toString(16);
-        colour=colour.slice(0,1)+alphaByte.toString(16)+colour.slice(2);
-        colour="0x"+colour;
-        newGameArray[i]=Number(colour);
+        var colour=newGameArray[i];
+        colour&=0xf0ffffff;
+        colour=colour | (alphaByte<<24);
+        newGameArray[i]=colour;
         return newGameArray;
     }
 }

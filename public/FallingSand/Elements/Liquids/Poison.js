@@ -8,22 +8,35 @@ class Poison extends Liquid{
     terminalVelocity=3;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
-        var temp
-        if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
-            var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
-            if(this.density>destinationElement.density || this.poisonStrength>destinationElement.poisonResistance){
-                if((this.poisonStrength)>destinationElement.poisonResistance){
-                    newGameArray=this.swapPositionsPoison(newGameArray, updatedPositions, i, i+canvasData.width)
-                    return newGameArray
+        var velocity=this.getAlpha(gameArray, i)
+        var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width);
+        if(this.density>belowElement.density || this.poisonStrength >belowElement.poisonResistance){
+            for(var j=0; j<velocity; j++){
+                if(i+canvasData.width<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width)==-1){
+                    var destinationElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+                    if(this.density>destinationElement.density || this.poisonStrength>destinationElement.poisonResistance){
+                        if((this.poisonStrength)>destinationElement.poisonResistance){
+                            newGameArray=this.swapPositionsPoison(newGameArray, updatedPositions, i, i+canvasData.width)
+                            i=i+canvasData.width
+                        }
+                        else{
+                            newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width)
+                            i=i+canvasData.width
+                        }
+                        
+                    }
+                    else{
+                        return newGameArray;
+                    }
                 }
-                else{
-                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width)
-                    return newGameArray
-                }
-                
             }
-            
+            if(velocity<this.terminalVelocity){
+                velocity++;
+            }
+            newGameArray =this.updateAlphaByte(newGameArray, velocity, i)
+            return newGameArray;
         }
+        
         var dir=Math.random() < 0.5;
         if(dir){
             if(i+canvasData.width+1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width+1)==-1 && i%canvasData.width!=canvasData.width-1){

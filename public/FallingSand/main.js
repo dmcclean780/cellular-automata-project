@@ -33,28 +33,38 @@ window.addEventListener("load", (event)=>{
   fpsHTML=document.getElementById("fpsMeter");
   elementSelector=document.getElementById("element-select");
   canvas.addEventListener('mousedown', (event)=>{
+    event.stopPropagation()
     var mouseEvent=true;
     var drawingData= getDrawingData(event, mouseEvent);
     startPainting(drawingData, gameArray, canvasData);
   } );
 
-  canvas.addEventListener('mouseup', (event)=> stopPainting(gameArray, canvasData));
+  canvas.addEventListener('mouseup', (event)=> {
+    event.stopPropagation()
+    stopPainting(gameArray, canvasData)
+  });
 
   canvas.addEventListener('mousemove', (event)=>{
+    event.stopPropagation()
     var mouseEvent=true;
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
   } );
 
   canvas.addEventListener('touchstart', (event)=>{
+    event.stopPropagation()
     var mouseEvent=false;
     var drawingData= getDrawingData(event, mouseEvent);
     startPainting(drawingData, gameArray, canvasData)
   } );
 
-  canvas.addEventListener('touchend', (event)=> stopPainting(gameArray, canvasData));
+  canvas.addEventListener('touchend', (event)=> {
+    event.stopPropagation()
+    stopPainting(gameArray, canvasData)}
+  );
 
   canvas.addEventListener('touchmove', (event)=>{
+    event.stopPropagation()
     var mouseEvent=false;
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
@@ -74,9 +84,8 @@ function getDrawingData(event, mouseEvent){
       var clientX = event.touches[0].clientX;
     }
   var colour=elementSelector.value;
-  var alpha = Math.floor(Math.random() * 15+206).toString(16);
-  alpha=alpha[0]+"1"
-  colour=colour.slice(0,2)+alpha+colour.slice(2);
+  var alpha = Math.floor(Math.random() * 15+206);
+  colour=colour | (alpha<<24);
   var drawingData = new DrawingData(rect, clientX, clientY, colour);
   return drawingData;
 }
