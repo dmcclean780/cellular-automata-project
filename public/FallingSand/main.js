@@ -86,6 +86,10 @@ function getDrawingData(event, mouseEvent){
   var colour=elementSelector.value;
   var alpha = Math.floor(Math.random() * 15+206);
   colour=colour | (alpha<<24);
+  colour&=0xf0ffffffff;
+  if(elementSelector.value==0x008CFF){
+    colour= colour | 0x0f00000000;
+  }
   var drawingData = new DrawingData(rect, clientX, clientY, colour);
   return drawingData;
 }

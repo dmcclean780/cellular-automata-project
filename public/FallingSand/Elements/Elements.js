@@ -6,6 +6,7 @@ class Element{
     poisonResistance=1;
     terminalVelocity;
     colour;
+    flammability=1;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         return newGameArray;

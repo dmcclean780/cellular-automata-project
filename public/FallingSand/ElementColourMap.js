@@ -13,6 +13,7 @@ import { Dirt } from "./Elements/Solids/MovableSolids/Dirt.js";
 import { Steam } from "./Elements/Gases/Steam.js";
 import { Heater } from "./Elements/Solids/ImmovableSolids/Heater.js";
 import { Cooler } from "./Elements/Solids/ImmovableSolids/Cooler.js";
+import { Fire } from "./Elements/Fire.js";
 
 var colorToElementMap = {
     0x000000: new Empty(),
@@ -30,6 +31,7 @@ var colorToElementMap = {
     0xE6D8AD: new Steam(),
     0x0000FF: new Heater(),
     0xFFFF00: new Cooler(),
+    0x008CFF: new Fire(),
 }
 
 function getElement(color) {
