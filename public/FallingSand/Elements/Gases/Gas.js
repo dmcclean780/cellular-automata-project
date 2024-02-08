@@ -43,7 +43,7 @@ class Gas extends Element{
             for(var j=0; j<this.dispertionRate; j++){
                 var adjacentElement = this.getNeighbourElement(newGameArray, i+1);
                 var aboveElement = this.getNeighbourElement(gameArray, i-canvasData.width)
-                if(this.density<adjacentElement.density && this.density>=aboveElement.density && !(adjacentElement instanceof Solid) && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1){
+                if(this.density<adjacentElement.density && this.density>=aboveElement.density || aboveElement instanceof Solid && !(adjacentElement instanceof Solid) && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1){
                     newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+1)
                     i=i+1
                 }
@@ -57,7 +57,7 @@ class Gas extends Element{
         for(var j=0; j<this.dispertionRate; j++){
             var adjacentElement = this.getNeighbourElement(newGameArray, i-1);
             var aboveElement = this.getNeighbourElement(gameArray, i-canvasData.width)
-            if(this.density<adjacentElement.density && this.density>=aboveElement.density && !(adjacentElement instanceof Solid) && updatedPositions.includes(i-1)==false && i%canvasData.width!=0){
+            if(this.density<adjacentElement.density && this.density>=aboveElement.density || aboveElement instanceof Solid && !(adjacentElement instanceof Solid) && updatedPositions.includes(i-1)==false && i%canvasData.width!=0){
                 newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-1)
                 i=i-1
             }
