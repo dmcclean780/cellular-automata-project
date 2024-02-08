@@ -6,7 +6,6 @@ class Gas extends Element{
     dispertionRate;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
-        var temp
         if(i-canvasData.width>0 && updatedPositions.indexOf(i-canvasData.width)==-1){
             var destinationElement = this.getNeighbourElement(gameArray, i-canvasData.width)
             if(this.density<destinationElement.density && !(destinationElement instanceof Solid)){

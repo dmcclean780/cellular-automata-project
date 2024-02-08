@@ -11,6 +11,8 @@ import { Bedrock } from "./Elements/Solids/ImmovableSolids/Bedrock.js";
 import { Coal } from "./Elements/Solids/MovableSolids/Coal.js";
 import { Dirt } from "./Elements/Solids/MovableSolids/Dirt.js";
 import { Steam } from "./Elements/Gases/Steam.js";
+import { Heater } from "./Elements/Solids/ImmovableSolids/Heater.js";
+import { Cooler } from "./Elements/Solids/ImmovableSolids/Cooler.js";
 
 var colorToElementMap = {
     0x000000: new Empty(),
@@ -26,6 +28,8 @@ var colorToElementMap = {
     0x2B2B2E: new Coal(),
     0x13458B: new Dirt(),
     0xE6D8AD: new Steam(),
+    0x0000FF: new Heater(),
+    0xFFFFFF: new Cooler(),
 }
 
 function getElement(color) {
