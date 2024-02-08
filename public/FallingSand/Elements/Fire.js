@@ -29,7 +29,10 @@ class Fire extends Element{
                     }
                 }
             }
-            fireLife--
+            var fireDecrease=Math.random()>0.7;
+            if(fireDecrease){
+                fireLife--
+            }
             if(fireLife==0){
                 newGameArray[i]=0x00000000;
             }

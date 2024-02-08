@@ -6,7 +6,7 @@ class Coal extends MovableSolid{
     terminalVelocity=9;
     inertialResistance=0.9;
     colour=0x2B2B2E;
-    flammability=0.5;
+    flammability=0.9;
 
 }
 

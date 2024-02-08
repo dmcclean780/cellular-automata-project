@@ -6,7 +6,7 @@ class Oil extends Liquid{
     acidResistance=0.4;
     terminalVelocity=3;
     colour=0x0B86B8;
-    flammability=0.1;
+    flammability=0.7;
 }
 
 export {Oil}
