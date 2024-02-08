@@ -1,3 +1,4 @@
+import { Steam } from "../Gases/Steam.js";
 import { Liquid } from "./Liquid.js";
 
 class Acid extends Liquid{
@@ -6,6 +7,8 @@ class Acid extends Liquid{
     acidStrength=0.5;
     acidResistance=0.5;
     terminalVelocity=3;
+    gasState= "steam";
+    colour=0x2FFFAD;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         var velocity=this.getAlpha(gameArray, i)

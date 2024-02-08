@@ -5,6 +5,7 @@ class Element{
     acidResistance;
     poisonResistance=1;
     terminalVelocity;
+    colour;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         return newGameArray;
@@ -68,6 +69,7 @@ class Element{
         newGameArray[i]=colour;
         return newGameArray;
     }
+
 }
 
 

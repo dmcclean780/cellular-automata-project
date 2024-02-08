@@ -14,26 +14,24 @@ import { Steam } from "./Elements/Gases/Steam.js";
 import { Heater } from "./Elements/Solids/ImmovableSolids/Heater.js";
 import { Cooler } from "./Elements/Solids/ImmovableSolids/Cooler.js";
 
-var colorToElementMap = {
-    0x000000: new Empty(),
-    0x8CE6F0: new Sand(),
-    0xFF901E: new Water(),
-    0xA9A9A9: new Stone(),
-    0x0B86B8: new Oil(),
-    0x00FF00: new StrongAcid(),
-    0x8515C7: new Poison(),
-    0x2FFFAD: new Acid(),
-    0x2F66A1: new Wood(),
-    0x424244: new Bedrock(),
-    0x2B2B2E: new Coal(),
-    0x13458B: new Dirt(),
-    0xE6D8AD: new Steam(),
-    0x0000FF: new Heater(),
-    0xFFFF00: new Cooler(),
+var nameToElementMap = {
+    "empty": new Empty(),
+    "sand": new Sand(),
+    "water": new Water(),
+    "stone": new Stone(),
+    "oil": new Oil(),
+    "strongAcid": new StrongAcid(),
+    "poison": new Poison(),
+    "acid": new Acid(),
+    "wood": new Wood(),
+    "bedrock": new Bedrock(),
+    "coal": new Coal(),
+    "dirt": new Dirt(),
+    "steam": new Steam(),
 }
 
-function getElement(color) {
-    return colorToElementMap[color]
+function getElementByName(name) {
+    return nameToElementMap[name]
 }
 
-export{getElement};
+export{getElementByName};

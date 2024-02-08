@@ -5,6 +5,7 @@ class Coal extends MovableSolid{
     acidResistance=0.7;
     terminalVelocity=9;
     inertialResistance=0.9;
+    colour=0x2B2B2E;
 
 }
 

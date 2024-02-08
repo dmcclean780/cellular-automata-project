@@ -3,7 +3,7 @@ import { Element } from "../Elements.js";
 
 class Liquid extends Element{
     dispertionRate;
-    
+    gasState;
 
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){

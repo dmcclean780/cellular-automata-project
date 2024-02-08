@@ -6,6 +6,8 @@ class Poison extends Liquid{
     acidResistance=0.3;
     dispertionRate=50;
     terminalVelocity=3;
+    gasState= "steam";
+    colour=0x8515C7;
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         var velocity=this.getAlpha(gameArray, i)

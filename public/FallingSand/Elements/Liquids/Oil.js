@@ -5,6 +5,7 @@ class Oil extends Liquid{
     dispertionRate=30;
     acidResistance=0.4;
     terminalVelocity=3;
+    colour=0x0B86B8
 }
 
 export {Oil}

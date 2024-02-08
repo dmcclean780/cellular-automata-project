@@ -6,6 +6,7 @@ class Sand extends MovableSolid{
     acidResistance=0.4;
     terminalVelocity=5;
     inertialResistance=0.1;
+    colour=0x8CE6F0;
 
 }
 

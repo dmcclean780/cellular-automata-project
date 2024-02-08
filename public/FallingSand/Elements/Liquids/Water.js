@@ -9,6 +9,8 @@ class Water extends Liquid{
     acidResistance=0.3;
     poisonResistance=0;
     terminalVelocity=3;
+    gasState= "steam";
+    colour=0xFF901E;
     
 }
 
