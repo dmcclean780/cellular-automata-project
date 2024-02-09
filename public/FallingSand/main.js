@@ -69,6 +69,8 @@ window.addEventListener("load", (event)=>{
     var drawingData= getDrawingData(event, mouseEvent);
     sketch(drawingData, gameArray, canvasData)
   } );
+
+  run();
 })
 
 window.addEventListener("resize", (event)=>{setCanvasObj();})
