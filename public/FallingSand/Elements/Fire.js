@@ -12,12 +12,12 @@ class Fire extends Element{
                 var nextIndex=i+(canvasData.width*j+k);
                 if(nextIndex != i && nextIndex>0 && nextIndex<canvasData.width*canvasData.height && nextIndex%canvasData.width!=0 && nextIndex%canvasData.width!=canvasData.width-1){
                     var neighbour = this.getNeighbourElement(gameArray, nextIndex)
-                    var spreadFire = Math.random()
-                    if(spreadFire>neighbour.flammability){
-                        newGameArray=this.spreadFire(newGameArray, nextIndex)
+                    var spreadFire = Math.random()*1000
+                    if(spreadFire>neighbour.fireResistance){
+                        newGameArray=this.spreadFire(newGameArray, nextIndex, neighbour)
                     }
                     if(neighbour instanceof Liquid && !(neighbour instanceof Oil) && updatedPosition.includes(nextIndex)==false){
-                        var evaporate=Math.random()>0.5;
+                        var evaporate=Math.random()>0.3;
                         if(evaporate){
                             newGameArray=this.changeStateToGas(neighbour, newGameArray, nextIndex);
                         }
@@ -29,7 +29,7 @@ class Fire extends Element{
                     }
                 }
             }
-            var fireDecrease=Math.random()>0.7;
+            var fireDecrease=Math.random()*1000>950
             if(fireDecrease){
                 fireLife--
             }
@@ -49,10 +49,10 @@ class Fire extends Element{
         return newGameArray
     }
 
-    spreadFire(newGameArray, nextIndex){
+    spreadFire(newGameArray, nextIndex, neighbour){
         var alpha = Math.floor(Math.random() * 15+206);
         var colour = this.colour | (alpha<<24);
-        colour = colour | 0x0f000000;
+        colour = colour | (neighbour.burnTime<<24);
         newGameArray[nextIndex]=colour;
         return newGameArray;
     }
