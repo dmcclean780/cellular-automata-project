@@ -13,8 +13,11 @@ class Cooler extends ImmovableSoild{
                 if(nextIndex != i && nextIndex>0 && nextIndex<canvasData.width*canvasData.height && nextIndex%canvasData.width!=0 && nextIndex%canvasData.width!=canvasData.width-1){
                     var neighbour = this.getNeighbourElement(gameArray, nextIndex)
                     if(neighbour instanceof Steam && updatedPosition.includes(nextIndex)==false){
-                        newGameArray=this.changeStateToLiquid(neighbour, newGameArray, nextIndex);
-                        updatedPosition.push(nextIndex);
+                        var condense=Math.random()>0.995;
+                        if(condense){
+                            newGameArray=this.changeStateToLiquid(neighbour, newGameArray, nextIndex);
+                            updatedPosition.push(nextIndex);
+                        }
                     }
                 }
             }

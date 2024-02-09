@@ -13,8 +13,11 @@ class Heater extends ImmovableSoild{
                 if(nextIndex != i && nextIndex>0 && nextIndex<canvasData.width*canvasData.height && nextIndex%canvasData.width!=0 && nextIndex%canvasData.width!=canvasData.width-1){
                     var neighbour = this.getNeighbourElement(gameArray, nextIndex)
                     if(neighbour instanceof Liquid && updatedPosition.includes(nextIndex)==false){
-                        newGameArray=this.changeStateToGas(neighbour, newGameArray, nextIndex);
-                        updatedPosition.push(nextIndex);
+                        var evaporate=Math.random()>0.995;
+                        if(evaporate){
+                            newGameArray=this.changeStateToGas(neighbour, newGameArray, nextIndex);
+                            updatedPosition.push(nextIndex);
+                        }
                     }
                 }
             }
