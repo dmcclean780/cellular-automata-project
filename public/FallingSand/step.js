@@ -1,7 +1,5 @@
 import {getElement } from "./ElementColourMap.js";
-import { Water } from "./Elements/Liquids/Water.js";
-import { Oil } from "./Elements/Liquids/Oil.js";
-import { Sand } from "./Elements/Solids/MovableSolids/Sand.js";
+import { Element } from "./Elements/Elements.js";
 
 function step(gameArray, canvasData, newGameArray){
     newGameArray=gameArray.slice()

@@ -3,15 +3,14 @@ import { getElementByName } from "../nameElementMap.js";
 import { Liquid } from "./Liquids/Liquid.js";
 import { Oil } from "./Liquids/Oil.js";
 import { Empty } from "./Empty.js";
+import { MovableSolid } from "./Solids/MovableSolids/MovableSolid.js";
 
-class Fire extends Element{
+class LiquidFire extends Element{
     colour=0x008CFF;
     density=0.1
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         newGameArray=this.moveAsLiquid(newGameArray, gameArray, canvasData, updatedPositions, i);
-        
-        
         newGameArray = this.updateFire(gameArray, i, canvasData, updatedPositions, newGameArray);
         
         return newGameArray
@@ -28,7 +27,12 @@ class Fire extends Element{
     spreadFire(newGameArray, nextIndex, neighbour){
         var alpha = Math.floor(Math.random() * 15+206);
         var colour = this.colour | (alpha<<24);
-        colour = colour | (neighbour.burnTime<<24);
+        if(neighbour instanceof Liquid || neighbour instanceof MovableSolid){
+            var colour=(this.colour) | (alpha<<24);
+        }
+        else{
+            var colour = (this.getElementByName("solid fire").colour) | (alpha<<24);
+        }
         newGameArray[nextIndex]=colour;
         return newGameArray;
     }
@@ -146,4 +150,4 @@ class Fire extends Element{
     
 }
 
-export{Fire};
+export{LiquidFire};
