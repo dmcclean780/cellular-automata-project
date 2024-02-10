@@ -11,7 +11,7 @@ class MovableSolid extends Solid{
         if(this.density>belowElement.density){
             for(var j=0; j<velocity; j++){
                 var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
-                if(this.density>belowElement.density && updatedPositions.includes(i+canvasData.width)==false && i+canvasData.width<canvasData.width*canvasData.height){
+                if(this.density>belowElement.density && !(belowElement instanceof Solid) && updatedPositions.includes(i+canvasData.width)==false && i+canvasData.width<canvasData.width*canvasData.height){
                     newGameArray=this.swapPositions(newGameArray, updatedPositions, i, i+canvasData.width)
                     i=i+canvasData.width
                 }
