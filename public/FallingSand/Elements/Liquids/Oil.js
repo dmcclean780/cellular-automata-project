@@ -6,7 +6,7 @@ class Oil extends Liquid{
     acidResistance=0.4;
     terminalVelocity=3;
     colour=0x0B86B8;
-    fireResistance=980;
+    fireResistance=900;
     burnTime=0xf;
 }
 

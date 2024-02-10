@@ -2,18 +2,47 @@ import { Element } from "./Elements.js";
 import { getElementByName } from "../nameElementMap.js";
 import { Liquid } from "./Liquids/Liquid.js";
 import { Oil } from "./Liquids/Oil.js";
+import { Empty } from "./Empty.js";
 
 class Fire extends Element{
     colour=0x008CFF;
-    move(i, gameArray, canvasData, newGameArray, updatedPosition){
+    density=0.1
+
+    move(i, gameArray, canvasData, newGameArray, updatedPositions){
+        newGameArray=this.moveAsLiquid(newGameArray, gameArray, canvasData, updatedPositions, i);
+        
+        
+        newGameArray = this.updateFire(gameArray, i, canvasData, updatedPositions, newGameArray);
+        
+        return newGameArray
+    }
+
+    changeStateToGas(neighbour, newGameArray, nextIndex){
+        var gasState=getElementByName(neighbour.gasState);
+        var alpha = Math.floor(Math.random() * 15+206);
+        var colour= gasState.colour | (alpha<<24);
+        newGameArray[nextIndex]=colour;
+        return newGameArray
+    }
+
+    spreadFire(newGameArray, nextIndex, neighbour){
+        var alpha = Math.floor(Math.random() * 15+206);
+        var colour = this.colour | (alpha<<24);
+        colour = colour | (neighbour.burnTime<<24);
+        newGameArray[nextIndex]=colour;
+        return newGameArray;
+    }
+
+    updateFire(gameArray, i, canvasData, updatedPosition, newGameArray){
         var fireLife = this.getAlpha(gameArray, i);
         for(var j=-1; j<2; j++){
             for(var k=-1; k<2; k++){
                 var nextIndex=i+(canvasData.width*j+k);
                 if(nextIndex != i && nextIndex>0 && nextIndex<canvasData.width*canvasData.height && nextIndex%canvasData.width!=0 && nextIndex%canvasData.width!=canvasData.width-1){
                     var neighbour = this.getNeighbourElement(gameArray, nextIndex)
+                    var aboveNeighbour=this.getNeighbourElement(gameArray, nextIndex-canvasData.width)
                     var spreadFire = Math.random()*1000
-                    if(spreadFire>neighbour.fireResistance){
+                    if(spreadFire>neighbour.fireResistance && aboveNeighbour instanceof Empty){
                         newGameArray=this.spreadFire(newGameArray, nextIndex, neighbour)
                     }
                     if(neighbour instanceof Liquid && !(neighbour instanceof Oil) && updatedPosition.includes(nextIndex)==false){
@@ -38,24 +67,83 @@ class Fire extends Element{
             }
             newGameArray=this.updateAlphaByte(newGameArray, fireLife, i);
         }
-        return newGameArray;
-    }
-
-    changeStateToGas(neighbour, newGameArray, nextIndex){
-        var gasState=getElementByName(neighbour.gasState);
-        var alpha = Math.floor(Math.random() * 15+206);
-        var colour= gasState.colour | (alpha<<24);
-        newGameArray[nextIndex]=colour;
         return newGameArray
     }
 
-    spreadFire(newGameArray, nextIndex, neighbour){
-        var alpha = Math.floor(Math.random() * 15+206);
-        var colour = this.colour | (alpha<<24);
-        colour = colour | (neighbour.burnTime<<24);
-        newGameArray[nextIndex]=colour;
-        return newGameArray;
+    moveAsLiquid(newGameArray, gameArray, canvasData, updatedPositions, i){
+        var velocity = this.getAlpha(gameArray, i)
+        var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+        if(this.density>belowElement.density){
+            for(var j=0; j<velocity; j++){
+                var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+                if(this.density>belowElement.density && updatedPositions.includes(i+canvasData.width)==false && i+canvasData.width<canvasData.width*canvasData.height){
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width)
+                    i=i+canvasData.width
+                }
+                else{
+                    return newGameArray
+                }
+            }
+            if(velocity<this.terminalVelocity){
+                velocity++;
+            }
+            newGameArray =this.updateAlphaByte(newGameArray, velocity, i)
+            return newGameArray;
+        }
+        var dir=Math.random() < 0.5;
+        if(dir){
+            if(i+canvasData.width+1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width+1)==-1 && i%canvasData.width!=canvasData.width-1){
+                var adjacentElement = this.getNeighbourElement(gameArray, i+1);
+                if(this.density>adjacentElement.density){
+                    var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width+1);
+                    if(this.density>destinationElement.density){
+                        newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width+1)
+                        return newGameArray
+                    }
+                }
+                
+            }
+        }
+        if(i+canvasData.width-1<canvasData.width*canvasData.height && updatedPositions.indexOf(i+canvasData.width-1)==-1 && i%canvasData.width!=0){
+            var adjacentElement=this.getNeighbourElement(gameArray, i-1);
+            if(this.density>adjacentElement.density){
+                var destinationElement=this.getNeighbourElement(gameArray, i+canvasData.width-1);
+                if(this.density>destinationElement.density){
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+canvasData.width-1)
+                    return newGameArray
+                }
+            }
+        }
+        dir=Math.random() < 0.5;
+        if(dir){
+            for(var j=0; j<this.dispertionRate; j++){
+                var adjacentElement = this.getNeighbourElement(newGameArray, i+1);
+                var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+                if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i+1)==false && i%canvasData.width!=canvasData.width-1){
+                    newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i+1)
+                    i=i+1
+                }
+                else{
+                    return newGameArray
+                }
+            }
+            
+            
+        }
+        for(var j=0; j<this.dispertionRate; j++){
+            var adjacentElement = this.getNeighbourElement(newGameArray, i-1);
+            var belowElement = this.getNeighbourElement(gameArray, i+canvasData.width)
+            if(this.density>adjacentElement.density && this.density<=belowElement.density && updatedPositions.includes(i-1)==false && i%canvasData.width!=0){
+                newGameArray=this.swapPositionsLiquid(newGameArray, updatedPositions, i, i-1)
+                i=i-1
+            }
+            else{
+                return newGameArray
+            }
+        }
+        return newGameArray
     }
+    
 }
 
 export{Fire};
