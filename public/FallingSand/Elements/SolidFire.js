@@ -4,6 +4,7 @@ import { Oil } from "./Liquids/Oil.js";
 import { Empty } from "./Empty.js";
 import { getElementByName } from "../nameElementMap.js";
 import { MovableSolid } from "./Solids/MovableSolids/MovableSolid.js";
+import { ImmovableSoild } from "./Solids/ImmovableSolids/ImmovableSolid.js";
 
 class SolidFire extends Element{
     colour=[0x008CF1, 0x0045F1, 0x00A5F1, 0x00D7F1, 0x00CDF1, 0x004DF1, 0x00D5F1];
@@ -11,7 +12,7 @@ class SolidFire extends Element{
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
         newGameArray = this.updateFire(gameArray, i, canvasData, updatedPositions, newGameArray);
-        
+        //newGameArray = this.genNewFire(i, canvasData, updatedPositions, newGameArray);
         return newGameArray
     }
 
@@ -36,6 +37,16 @@ class SolidFire extends Element{
         return newGameArray;
     }
 
+    genNewFire(i, canvasData, newGameArray){
+        var genNewFire=Math.random()
+        var fireHeight=Math.floor(Math.random()*10)+1
+        var neighbour=this.getNeighbourElement(newGameArray, i-canvasData.width*fireHeight)
+        if(genNewFire>0.5 && neighbour instanceof Empty){
+            newGameArray=this.spreadFire(newGameArray, i-canvasData.width*fireHeight, new ImmovableSoild)
+        }
+        return newGameArray;
+    }
+
     updateFire(gameArray, i, canvasData, updatedPosition, newGameArray){
         var fireLife = this.getAlpha(gameArray, i);
         for(var j=-1; j<2; j++){
@@ -43,9 +54,12 @@ class SolidFire extends Element{
                 var nextIndex=i+(canvasData.width*j+k);
                 if(nextIndex != i && nextIndex>0 && nextIndex<canvasData.width*canvasData.height && nextIndex%canvasData.width!=0 && nextIndex%canvasData.width!=canvasData.width-1){
                     var neighbour = this.getNeighbourElement(gameArray, nextIndex)
-                    var aboveNeighbour=this.getNeighbourElement(gameArray, nextIndex-canvasData.width)
+                    var aboveNeighbour = this.getNeighbourElement(gameArray, nextIndex-canvasData.width)
+                    var leftNeighbour=this.getNeighbourElement(gameArray, nextIndex+1)
+                    var rightNeighbour=this.getNeighbourElement(gameArray, nextIndex-1)
+                    var belowNeighour=this.getNeighbourElement(gameArray, nextIndex+canvasData.width)
                     var spreadFire = Math.random()*1000
-                    if(spreadFire>neighbour.fireResistance && aboveNeighbour instanceof Empty){
+                    if(spreadFire>neighbour.fireResistance && (aboveNeighbour instanceof Empty || leftNeighbour instanceof Empty || rightNeighbour instanceof Empty || belowNeighour instanceof Empty)){
                         newGameArray=this.spreadFire(newGameArray, nextIndex, neighbour)
                     }
                     if(neighbour instanceof Liquid && !(neighbour instanceof Oil) && updatedPosition.includes(nextIndex)==false){
