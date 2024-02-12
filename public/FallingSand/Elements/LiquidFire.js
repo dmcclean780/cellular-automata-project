@@ -6,7 +6,7 @@ import { Empty } from "./Empty.js";
 import { MovableSolid } from "./Solids/MovableSolids/MovableSolid.js";
 
 class LiquidFire extends Element{
-    colour=0x008CFF;
+    colour=[0x008CFF, 0x0045FF, 0x00A5FF, 0x00D7FF, 0x00CDFF, 0x004DFF, 0x00D5FF];
     density=0.1
 
     move(i, gameArray, canvasData, newGameArray, updatedPositions){
@@ -26,12 +26,12 @@ class LiquidFire extends Element{
 
     spreadFire(newGameArray, nextIndex, neighbour){
         var alpha = Math.floor(Math.random() * 15+206);
-        var colour = this.colour | (alpha<<24);
+        var colour = this.colour[Math.floor(Math.random()*6)] | (alpha<<24);
         if(neighbour instanceof Liquid || neighbour instanceof MovableSolid){
-            var colour=(this.colour) | (alpha<<24);
+            var colour=(this.colour[Math.floor(Math.random()*6)]) | (alpha<<24);
         }
         else{
-            var colour = (this.getElementByName("solid fire").colour) | (alpha<<24);
+            var colour = (this.getElementByName("solid fire").colour[Math.floor(Math.random()*6)]) | (alpha<<24);
         }
         newGameArray[nextIndex]=colour;
         return newGameArray;

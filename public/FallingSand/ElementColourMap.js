@@ -33,7 +33,20 @@ var colorToElementMap = {
     0x0000FF: new Heater(),
     0xFFFF00: new Cooler(),
     0x008CFF: new LiquidFire(),
+    0x0045FF: new LiquidFire(),
+    0x00A5FF: new LiquidFire(),
+    0x00D7FF: new LiquidFire(),
+    0x00CDFF: new LiquidFire(),
+    0x004DFF: new LiquidFire(),
+    0x00D5FF: new LiquidFire(),
     0x008cF1: new SolidFire(),
+    0x008CF1: new SolidFire(),
+    0x0045F1: new SolidFire(),
+    0x00A5F1: new SolidFire(),
+    0x00D7F1: new SolidFire(),
+    0x00CDF1: new SolidFire(),
+    0x004DF1: new SolidFire(),
+    0x00D5F1: new SolidFire(),
 }
 
 function getElement(color) {
