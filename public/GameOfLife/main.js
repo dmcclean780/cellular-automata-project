@@ -28,7 +28,7 @@ window.addEventListener("load", (event)=>{
 
   var audioElement = document.getElementById("MainMusic");
   audioElement.play();
-  
+
   setCanvasObj();
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
@@ -182,24 +182,48 @@ function setCanvasObj(){
 }
 //Sections of code to retrive buttons what to do when they are clicked
 var stepButton=document.getElementById("stepButton");
-stepButton.addEventListener("click", stepGame);
+stepButton.addEventListener("click", (event)=>{
+  var clickSound=document.getElementById("clickSound");
+  clickSound.play();
+  stepGame();
+});
 
 var resetButton=document.getElementById("resetButton");
-resetButton.addEventListener("click", reset);
+resetButton.addEventListener("click", (event)=>{
+  var clickSound=document.getElementById("clickSound");
+  clickSound.play();
+  reset()
+});
 
 var runButton=document.getElementById("runButton");
-runButton.addEventListener("click", run);
+runButton.addEventListener("click", (event)=>{
+  var clickSound=document.getElementById("clickSound");
+  clickSound.play();
+  run()
+});
 
 var stopButton=document.getElementById("stopButton");
-stopButton.addEventListener("click", stop);
+stopButton.addEventListener("click", (event)=>{
+  var clickSound=document.getElementById("clickSound");
+  clickSound.play();
+  stop()
+});
 
 var speedSlider=document.getElementById("speed");
 
 var eraseButton=document.getElementById("eraseButton");
-eraseButton.addEventListener("click", (event)=> eraseMode(eraseButton));
+eraseButton.addEventListener("click", (event)=> {
+  var clickSound=document.getElementById("clickSound");
+  clickSound.play();
+  eraseMode(eraseButton)
+});
 
 var randoButton=document.getElementById("random");
-randoButton.addEventListener("click", randomiseArray)
+randoButton.addEventListener("click", (event)=>{
+  var clickSound=document.getElementById("clickSound");
+  clickSound.play();
+  randomiseArray()
+})
 
   
 
