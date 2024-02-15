@@ -25,6 +25,10 @@ var sum=0;
 
 //Block of code to create the array and listen for a mouse click
 window.addEventListener("load", (event)=>{
+
+  var audioElement = document.getElementById("MainMusic");
+  audioElement.play();
+  
   setCanvasObj();
   gameArray=createArray(canvasData);
   newGameArray=createArray(canvasData);
@@ -196,6 +200,8 @@ eraseButton.addEventListener("click", (event)=> eraseMode(eraseButton));
 
 var randoButton=document.getElementById("random");
 randoButton.addEventListener("click", randomiseArray)
+
+  
 
 
 
